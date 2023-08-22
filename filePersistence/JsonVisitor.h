@@ -2,7 +2,7 @@
 #define JSONVISITOR_H
 
 // direttive di inclusione
-#include "IConstVisitor.h"
+#include "model/IConstVisitor.h"
 #include <QJsonObject>
 
 class JsonVisitor: public IConstVisitor {

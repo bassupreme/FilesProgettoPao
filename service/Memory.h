@@ -3,7 +3,7 @@
 
 // direttive d'inclusione
 #include "Container.h"
-#include "AbstractProduct.h"
+#include "model/AbstractProduct.h"
 #include "Filter.h"
 #include <vector>
 

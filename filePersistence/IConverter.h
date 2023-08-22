@@ -2,7 +2,7 @@
 #define ICONVERTER_H
 
 // direttive d'inclusione
-#include "AbstractProduct.h"
+#include "model/AbstractProduct.h"
 #include <string>
 #include <QJsonObject>
 

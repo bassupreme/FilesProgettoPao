@@ -1,42 +1,48 @@
 #include "ResultsWidget.h"
-#include "../AbstractProduct.h"
-#include "../Fisico.h"
-#include "../Virtuale.h"
-#include "../Noleggio.h"
+#include "model/AbstractProduct.h"
+#include "model/Fisico.h"
+#include "model/Virtuale.h"
+#include "model/Noleggio.h"
+#include "mainwindow.h"
 #include <string>
+#include <QScrollArea>
 
 
-ResultsWidget::~ResultsWidget()
-{
-
+ResultsWidget::~ResultsWidget() {
+    for(std::vector<ListItem*>::const_iterator cit = listItems.begin(); cit != listItems.end(); cit++) {
+        delete (*cit);
+    }
 }
 
-ResultsWidget::ResultsWidget(QWidget* parent) : QWidget(parent){
+ResultsWidget::ResultsWidget(QMainWindow* mainWindow, QWidget* parent) : QWidget(parent), mainWindow(mainWindow) {
     // creazione del layout
-    verticalLayout = new QGridLayout(this);
+    verticalLayout = new QGridLayout();
+    verticalLayout->setAlignment(Qt::AlignRight | Qt::AlignTop);
+    setLayout(verticalLayout);
+}
 
-    std::string array[] = { "porca: ", "elemento super fantastico numero: "};
+void ResultsWidget::renderResults(std::vector<AbstractProduct *>& results) {
 
-    // creazione dei tanti bottoni che vanno a popolare il layout.
-    for(int i = 0; i < 10; i++) {
-        // creazione prodotto
-        std::string nome = array[i%2] + std::to_string(i);
+    int i = 0;
+    for(std::vector<AbstractProduct*>::const_iterator cit = results.begin(); cit != results.end(); cit++) {
 
-        AbstractProduct* product = new Fisico(i, 2.0, nome, "path", "descrizione", false);
 
         // creazione widget
-        ListItem* listItem = new ListItem(product, this);
+        ListItem* listItem = new ListItem(*cit, this);
+
+        connect(listItem, SIGNAL(deletedProduct(AbstractProduct*)), mainWindow, SLOT(deleteProduct(AbstractProduct*)));
+        connect(listItem, SIGNAL(updatedProduct(AbstractProduct*)), mainWindow, SLOT(updateProduct(AbstractProduct*)));
 
         // personalizzazione widget
-        /*
         QSizePolicy widgetPolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
         widgetPolicy.setVerticalStretch(0);
         listItem->setSizePolicy(widgetPolicy);
 
-        */
         // aggiunta al layout
-        verticalLayout->addWidget(listItem, i, 0);
-        verticalLayout->setAlignment(listItem, Qt::AlignLeft| Qt::AlignTop);
         listItems.push_back(listItem);
+        verticalLayout->setAlignment(listItem, Qt::AlignRight | Qt::AlignTop);
+        verticalLayout->addWidget(listItem, i, 0);
+        i++;
     }
 }
+

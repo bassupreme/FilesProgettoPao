@@ -1,8 +1,8 @@
-#include "IFile.h"
+#include "filePersistence/AbstractFile.h"
 
 
-IFile::~IFile() { }
+AbstractFile::~AbstractFile() { }
 
-IFile::IFile(const std::string p) : path(p) {}
+AbstractFile::AbstractFile(const std::string p) : path(p) {}
 
-const std::string& IFile::getPath() const { return path; } // implementazione di default
+const std::string& AbstractFile::getPath() const { return path; } // implementazione di default

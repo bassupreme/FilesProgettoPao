@@ -1,7 +1,7 @@
 #include "ItemRenderer.h"
-#include "Fisico.h"
-#include "Virtuale.h"
-#include "Noleggio.h"
+#include "model/Fisico.h"
+#include "model/Virtuale.h"
+#include "model/Noleggio.h"
 #include <QVBoxLayout>
 #include <QLabel>
 

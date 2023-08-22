@@ -1,7 +1,7 @@
 #ifndef IMATCHER_H
 #define IMATCHER_H
 
-#include "AbstractProduct.h"
+#include "model/AbstractProduct.h"
 
 class IMatcher { // interfaccia IMatcher
 public:

@@ -4,8 +4,8 @@
 // direttive d'inclusione
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "AbstractProduct.h"
-#include "IConstVisitor.h"
+#include "model/AbstractProduct.h"
+#include "model/IConstVisitor.h"
 
 class ListItem : public QWidget {
     Q_OBJECT

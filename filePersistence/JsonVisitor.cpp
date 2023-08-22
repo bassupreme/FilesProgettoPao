@@ -1,8 +1,8 @@
 // direttive di inclusione
 #include "JsonVisitor.h"
-#include "Fisico.h"
-#include "Virtuale.h"
-#include "Noleggio.h"
+#include "model/Fisico.h"
+#include "model/Virtuale.h"
+#include "model/Noleggio.h"
 
 void JsonVisitor::visit(const Fisico& f) {
     // codice per la serializzazione dell'oggetto puntato da f.

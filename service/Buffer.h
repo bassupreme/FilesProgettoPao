@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-#include "AbstractProduct.h"
+#include "model/AbstractProduct.h"
 
 class Buffer {
 private:

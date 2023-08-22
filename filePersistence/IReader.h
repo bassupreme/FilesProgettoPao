@@ -2,7 +2,7 @@
 #define IREADER_H
 
 // direttive d'inclusione
-#include "AbstractProduct.h"
+#include "model/AbstractProduct.h"
 #include <QJsonObject>
 
 class IReader {

@@ -23,11 +23,11 @@ ListItem::ListItem(AbstractProduct* product, QWidget* parent) : QWidget(parent),
     QLabel* image = new QLabel();
     image->setPixmap(image_object.scaled(96, 96, Qt::AspectRatioMode::KeepAspectRatio));
 
+
     // setup custom layout
     ItemRenderer* renderer = new ItemRenderer;
     product->accept(*renderer);
     QVBoxLayout* renderedLayout = renderer->getRenderedLayout();
-
 
     // setup dei bottoni
     QHBoxLayout* actions = new QHBoxLayout();
@@ -72,6 +72,7 @@ void ListItem::emitDeleteSignal() {
 
 void ListItem::emitUpdateSignal()
 {
+    std::cout << "update product with nome: " << product->getNome() <<  std::endl;
     emit updatedProduct(product);
 }
 

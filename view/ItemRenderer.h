@@ -4,7 +4,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
-#include "IConstVisitor.h"
+#include "model/IConstVisitor.h"
 
 class ItemRenderer : public IConstVisitor {
 private:

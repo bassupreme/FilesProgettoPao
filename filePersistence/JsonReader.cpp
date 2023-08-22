@@ -1,10 +1,10 @@
 // direttive d'inclusione
 #include <QJsonValue>
 #include "JsonReader.h"
-#include "AbstractProduct.h"
-#include "Fisico.h"
-#include "Virtuale.h"
-#include "Noleggio.h"
+#include "model/AbstractProduct.h"
+#include "model/Fisico.h"
+#include "model/Virtuale.h"
+#include "model/Noleggio.h"
 
 // l'implementazione del costruttore di default va bene 
 

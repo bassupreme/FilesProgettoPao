@@ -3,7 +3,7 @@
 
 #include <string>
 #include "IMatcher.h"
-#include "AbstractProduct.h"
+#include "model/AbstractProduct.h"
 
 class SubstringMatcher : public IMatcher {
 private:
