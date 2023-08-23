@@ -1,7 +1,6 @@
 // direttive d'inclusione
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QVBoxLayout>
 #include <QScrollArea>
 #include <QSplitter> // andare a vedere la documentazione
 #include <QList> // serve per lo splitter
@@ -13,6 +12,12 @@
 // inclusioni di test
 #include "model/Fisico.h"
 #include "model/Virtuale.h"
+#include "model/Noleggio.h"
+#include "TestProductEditor.h"
+#include "EditorFisico.h"
+#include "EditorVirtuale.h"
+#include "EditorNoleggio.h"
+#include "ItemEditorRenderer.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // Actions
@@ -101,6 +106,11 @@ MainWindow::~MainWindow() {
 
 }
 
+void MainWindow::clearResults() {
+    clearStack();
+    resultsWidget->clearResults();
+}
+
 void MainWindow::showStatus(const std::string& message, const unsigned int duration) {
     statusBar()->showMessage(QString::fromStdString(message), duration);
 }
@@ -122,6 +132,7 @@ void MainWindow::toggleToolbar() {
 void MainWindow::deleteProduct(AbstractProduct* product) {
     std::cout << "SLOT MAIN WINDOW" << std::endl;
     std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
+    resultsWidget->deleteResult(product);
 }
 
 void MainWindow::updateProduct(AbstractProduct* product) {
@@ -129,8 +140,11 @@ void MainWindow::updateProduct(AbstractProduct* product) {
     std::cout << "aggiornare prodotto: " << std::to_string(product->getId()) << std::endl;
     clearStack();
 
-    TestProductEditor* editor = new TestProductEditor(this);
-    connect(editor, SIGNAL(searchAll(Filter*)), this, SLOT(search(Filter*)));
+    ItemEditorRenderer* renderer = new ItemEditorRenderer(this);
+    product->accept(*renderer);
+    QWidget* editor = renderer->getRenderedEditor();
+    // EditorNoleggio* editor = new EditorNoleggio(this, product);
+    // connect(editor, SIGNAL(searchAll(Filter*)), this, SLOT(search(Filter*)));
     QScrollArea* area = new QScrollArea();
     area->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -142,15 +156,20 @@ void MainWindow::updateProduct(AbstractProduct* product) {
 }
 
 void MainWindow::search(Filter *) {
-    std::vector<AbstractProduct*> aux = {
-        new Fisico(1, 2.0, "palla", "path", "descrizione"),
-        new Fisico(2, 2.0, "gatto", "path", "descrizione"),
-        new Fisico(3, 2.0, "mare", "path", "descrizione"),
-        new Fisico(4, 2.0, "circo", "path", "descrizione"),
-        new Virtuale(5, 4.0, "videogioco", "path", "descrizione")
-    };
+    // DATI DI TEST FAKE
+    std::vector<AbstractProduct*> aux;
 
+    AbstractProduct* p1 =  new Noleggio(1, 9.5, "pc", "path", "descrizione", true, "negizio", "io");
+    AbstractProduct* p2 =   new Fisico(2, 2.0, "chitarra", "path", "descrizione");
+    AbstractProduct* p3 =   new Noleggio(3, 2.0, "casse", "path", "descrizione", "negozio");
+    AbstractProduct* p4 =   new Fisico(4, 2.0, "basso", "path", "descrizione");
+    AbstractProduct* p5 =   new Virtuale(5, 9.0, "cd", "path", "descrizione");
 
+    aux.push_back(p1);
+    aux.push_back(p2);
+    aux.push_back(p3);
+    aux.push_back(p4);
+    aux.push_back(p5);
 
     resultsWidget->renderResults(aux);
     stackedWidget->setCurrentIndex(0);

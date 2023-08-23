@@ -24,6 +24,7 @@ void ItemRenderer::visit(const Fisico& product) {
 
 void ItemRenderer::visit(const Noleggio& product) {
     renderedLayout = new QVBoxLayout();
+    renderedLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
     QLabel* nome = new QLabel(QString::fromStdString(product.getNome()));
     QLabel* usato;
@@ -32,6 +33,10 @@ void ItemRenderer::visit(const Noleggio& product) {
 
     renderedLayout->addWidget(nome);
     renderedLayout->addWidget(usato);
+
+    // settare allineamento all'interno del layout
+    renderedLayout->setAlignment(nome, Qt::AlignCenter | Qt::AlignTop);
+    renderedLayout->setAlignment(usato, Qt::AlignCenter | Qt::AlignTop);
 }
 
 void ItemRenderer::visit(const Virtuale& product) {

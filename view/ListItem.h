@@ -5,20 +5,21 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include "model/AbstractProduct.h"
-#include "model/IConstVisitor.h"
 
 class ListItem : public QWidget {
     Q_OBJECT
 private:
-    QWidget* widget; // rendered widget
+    // QWidget* widget; // rendered widget
     AbstractProduct* product; // puntatore al prodotto da rappresentare
     QPushButton* editButton;
     QPushButton* deleteButton;
+    QVBoxLayout* infoLayout;
     unsigned int idListItem; // non so se usarlo o meno.
 public:
     virtual ~ListItem();
     ListItem(AbstractProduct* product, QWidget* parent = nullptr);
-    QWidget* getWidget() const;
+    const AbstractProduct* getProduct() const;
+    // QWidget* getWidget() const;
     QPushButton* getEditButton() const;
     QPushButton* getDeleteButton() const;
 private slots:

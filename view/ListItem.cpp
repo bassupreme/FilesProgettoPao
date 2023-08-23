@@ -9,9 +9,8 @@
 #include <iostream>
 
 
-ListItem::~ListItem()
-{
-    delete widget;
+ListItem::~ListItem() {
+    // delete infoLayout;
 }
 
 ListItem::ListItem(AbstractProduct* product, QWidget* parent) : QWidget(parent), product(product) {
@@ -25,9 +24,9 @@ ListItem::ListItem(AbstractProduct* product, QWidget* parent) : QWidget(parent),
 
 
     // setup custom layout
-    ItemRenderer* renderer = new ItemRenderer;
+    ItemRenderer* renderer = new ItemRenderer();
     product->accept(*renderer);
-    QVBoxLayout* renderedLayout = renderer->getRenderedLayout();
+    infoLayout = renderer->getRenderedLayout();
 
     // setup dei bottoni
     QHBoxLayout* actions = new QHBoxLayout();
@@ -44,18 +43,24 @@ ListItem::ListItem(AbstractProduct* product, QWidget* parent) : QWidget(parent),
 
     // aggiunta dei bottoni al layout.
     layout->addWidget(image);
-    layout->addLayout(renderedLayout);
+    layout->addLayout(infoLayout);
     layout->addLayout(actions);
 
     // setting allineamenti dei widget
     layout->setAlignment(image, Qt::AlignLeft | Qt::AlignTop);
-    layout->setAlignment(widget, Qt::AlignCenter| Qt::AlignTop);
+    layout->setAlignment(infoLayout, Qt::AlignCenter| Qt::AlignTop);
 
 }
 
+const AbstractProduct *ListItem::getProduct() const {
+    return product;
+}
+
+/*
 QWidget *ListItem::getWidget() const {
     return widget;
 }
+*/
 
 QPushButton *ListItem::getEditButton() const {
     return editButton;
@@ -66,14 +71,12 @@ QPushButton *ListItem::getDeleteButton() const {
 }
 
 void ListItem::emitDeleteSignal() {
-    std::cout << "delete product with nome: " << product->getNome() <<  std::endl;
+    std::cout << "ListItem::emitDeletedSignal(): " << product->getNome() <<  std::endl;
     emit deletedProduct(product);
 }
 
 void ListItem::emitUpdateSignal()
 {
-    std::cout << "update product with nome: " << product->getNome() <<  std::endl;
+    std::cout << "ListItem::emitUpdatedSignal():" << product->getNome() <<  std::endl;
     emit updatedProduct(product);
 }
-
-

@@ -5,15 +5,18 @@
 #include <QPushButton>
 #include <QMainWindow>
 #include "service/Filter.h"
+#include "model/AbstractProduct.h"
 
+#include "mainwindow.h"
 
 class TestProductEditor : public QWidget {
     Q_OBJECT
 private:
     QMainWindow* mainWindow;
+    AbstractProduct* subject;
     QPushButton* apply;
 public:
-    TestProductEditor(QMainWindow* mainWindow, QWidget* parent = nullptr);
+    TestProductEditor(MainWindow* mainWindow, AbstractProduct* subject, QWidget* parent = nullptr);
 
 private slots:
     void appliedChanges();

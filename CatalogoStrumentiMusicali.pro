@@ -24,7 +24,12 @@ SOURCES += \
     service/Memory.cpp \
     service/PriceMatcher.cpp \
     service/SubstringMatcher.cpp \
+    view/AbstractEditor.cpp \
+    view/EditorFisico.cpp \
+    view/EditorNoleggio.cpp \
+    view/EditorVirtuale.cpp \
     view/FilterWidget.cpp \
+    view/ItemEditorRenderer.cpp \
     view/ItemRenderer.cpp \
     view/ListItem.cpp \
     view/ResultsWidget.cpp \
@@ -52,7 +57,13 @@ HEADERS += \
     service/Memory.h \
     service/PriceMatcher.h \
     service/SubstringMatcher.h \
+    view/AbstractEditor.h \
+    view/EditorFisico.h \
+    view/EditorNoleggio.h \
+    view/EditorVirtuale.h \
     view/FilterWidget.h \
+    view/ItemCreator.h \
+    view/ItemEditorRenderer.h \
     view/ItemRenderer.h \
     view/ListItem.h \
     view/ResultsWidget.h \

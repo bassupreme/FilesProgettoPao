@@ -5,23 +5,28 @@
 #include <QObject>
 #include <QWidget>
 #include <QVBoxLayout>
-#include <QGridLayout>
+// #include <QGridLayout>
 #include <QPushButton>
 #include <QMainWindow>
 #include <vector>
 #include "ListItem.h"
 #include "model/AbstractProduct.h"
 
+
 class ResultsWidget : public QWidget {
     Q_OBJECT
 private:
-    QGridLayout* verticalLayout;
+    QVBoxLayout* verticalLayout;
     std::vector<ListItem*> listItems;
     QMainWindow* mainWindow;
+    void destroyListItems();
 public:
     ~ResultsWidget();
     ResultsWidget(QMainWindow* mainWindow, QWidget* parent = nullptr);
     void renderResults(std::vector<AbstractProduct*>&);
+    void deleteResult(const AbstractProduct*);
+    void clearResults();
+
 };
 
 #endif // RESULTSWIDGET_H
