@@ -6,7 +6,7 @@
 #include "EditorFisico.h"
 #include "EditorVirtuale.h"
 #include "EditorNoleggio.h"
-
+#include "ItemInjector.h"
 
 ItemEditorRenderer::ItemEditorRenderer(MainWindow *mainWindow) : mainWindow(mainWindow) {}
 
@@ -15,10 +15,10 @@ void ItemEditorRenderer::visit(Virtuale& prodotto) {
 }
 
 void ItemEditorRenderer::visit(Fisico& prodotto) {
-
-    // usare questo visitor per settare un ulteriore layout in modo da
-    // non dover ricorrere al dynamic cast all'interno di ogni singolo editor.
-    renderedEditor = new EditorFisico(mainWindow, &prodotto);
+    EditorFisico* editor= new EditorFisico(mainWindow, &prodotto);
+    ItemInjector* injector = new ItemInjector(editor);
+    prodotto.accept(*injector);
+    renderedEditor = editor;
 }
 
 void ItemEditorRenderer::visit(Noleggio& prodotto) {

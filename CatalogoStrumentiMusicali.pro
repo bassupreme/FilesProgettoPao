@@ -30,6 +30,7 @@ SOURCES += \
     view/EditorVirtuale.cpp \
     view/FilterWidget.cpp \
     view/ItemEditorRenderer.cpp \
+    view/ItemInjector.cpp \
     view/ItemRenderer.cpp \
     view/ListItem.cpp \
     view/ResultsWidget.cpp \
@@ -64,6 +65,7 @@ HEADERS += \
     view/FilterWidget.h \
     view/ItemCreator.h \
     view/ItemEditorRenderer.h \
+    view/ItemInjector.h \
     view/ItemRenderer.h \
     view/ListItem.h \
     view/ResultsWidget.h \

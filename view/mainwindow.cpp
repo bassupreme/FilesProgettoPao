@@ -20,6 +20,20 @@
 #include "ItemEditorRenderer.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    // DATI DI TEST FAKE
+    AbstractProduct* p1 =  new Noleggio(1, 9.5, "pc", "path", "descrizione", true, "negizio", "io");
+    AbstractProduct* p2 =   new Fisico(2, 2.0, "chitarra", "path", "descrizione");
+    AbstractProduct* p3 =   new Noleggio(3, 2.0, "casse", "path", "descrizione", "negozio");
+    AbstractProduct* p4 =   new Fisico(4, 2.0, "basso", "path", "descrizione");
+    AbstractProduct* p5 =   new Virtuale(5, 9.0, "cd", "path", "descrizione");
+
+    aux.push_back(p1);
+    aux.push_back(p2);
+    aux.push_back(p3);
+    aux.push_back(p4);
+    aux.push_back(p5);
+
+
     // Actions
     QAction* create = new QAction(
                 QIcon(QPixmap((":/assets/icons/new.svg"))),
@@ -143,7 +157,7 @@ void MainWindow::updateProduct(AbstractProduct* product) {
     ItemEditorRenderer* renderer = new ItemEditorRenderer(this);
     product->accept(*renderer);
     QWidget* editor = renderer->getRenderedEditor();
-    // EditorNoleggio* editor = new EditorNoleggio(this, product);
+
     // connect(editor, SIGNAL(searchAll(Filter*)), this, SLOT(search(Filter*)));
     QScrollArea* area = new QScrollArea();
     area->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -156,22 +170,7 @@ void MainWindow::updateProduct(AbstractProduct* product) {
 }
 
 void MainWindow::search(Filter *) {
-    // DATI DI TEST FAKE
-    std::vector<AbstractProduct*> aux;
-
-    AbstractProduct* p1 =  new Noleggio(1, 9.5, "pc", "path", "descrizione", true, "negizio", "io");
-    AbstractProduct* p2 =   new Fisico(2, 2.0, "chitarra", "path", "descrizione");
-    AbstractProduct* p3 =   new Noleggio(3, 2.0, "casse", "path", "descrizione", "negozio");
-    AbstractProduct* p4 =   new Fisico(4, 2.0, "basso", "path", "descrizione");
-    AbstractProduct* p5 =   new Virtuale(5, 9.0, "cd", "path", "descrizione");
-
-    aux.push_back(p1);
-    aux.push_back(p2);
-    aux.push_back(p3);
-    aux.push_back(p4);
-    aux.push_back(p5);
-
-    resultsWidget->renderResults(aux);
+        resultsWidget->renderResults(aux);
     stackedWidget->setCurrentIndex(0);
     clearStack();
 }

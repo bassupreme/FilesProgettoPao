@@ -15,6 +15,7 @@ public:
     EditorFisico(MainWindow* mainWindow, AbstractProduct* subject, QWidget* parent = nullptr);
     virtual void update(); // modifica del prodotto
     virtual void create(); // creazione del prodotto
+    void injectItem(const Fisico&);
 private slots:
     void emitSignalUpdate();
     void emitSignalCreate();

@@ -46,3 +46,7 @@ void EditorNoleggio::create()
 {
 
 }
+
+void EditorNoleggio::injectItem(const Noleggio& product) {
+
+}

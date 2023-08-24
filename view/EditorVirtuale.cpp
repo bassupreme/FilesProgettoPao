@@ -33,3 +33,8 @@ void EditorVirtuale::create()
 {
 
 }
+
+void EditorVirtuale::injectItem(const Virtuale& product) {
+
+
+}

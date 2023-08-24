@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
+    std::vector<AbstractProduct*> aux;
     ResultsWidget* resultsWidget;
     FilterWidget* filterWidget;
     QStackedWidget* stackedWidget;

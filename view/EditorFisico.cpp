@@ -1,18 +1,14 @@
 #include "EditorFisico.h"
-#include "model/Fisico.h".h"
+#include "model/Fisico.h"
+#include "ItemInjector.h"
 #include <QFormLayout>
 #include <QVBoxLayout>
 #include <iostream>
 
-
-EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent){
+EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
     // setup oggetti grafici di questo editor specifico
     checkBoxUsato = new QCheckBox("usato");
 
-    Fisico* oggetto = dynamic_cast<Fisico*>(subject);
-    if(subject != nullptr) {
-        checkBoxUsato->setChecked(oggetto->getUsato());
-    }
 
     // set up layout verticale
     QVBoxLayout* vbox = new QVBoxLayout(this);
@@ -31,7 +27,6 @@ EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWi
     form->addRow("usato", checkBoxUsato);
     form->addRow("apply changes:", getButtonApply());
 
-
     connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
     connect(this, SIGNAL(signalUpdated(AbstractProduct*)), this,  SLOT(updatedProduct(AbstractProduct*)));
 }
@@ -42,7 +37,16 @@ void EditorFisico::update() {
 }
 
 void EditorFisico::create() {
+    std::cout << "EditorFisico::create()" << std::endl;
+}
 
+void EditorFisico::injectItem(const Fisico& product) {
+    // settare i campi delle box
+    getBoxId()->setValue(product.getId());
+    getBoxPrezzo()->setValue(product.getPrezzo());
+    getBoxNome()->setText(QString::fromStdString(product.getNome()));
+    getBoxImagePath()->setText(QString::fromStdString(product.getImagePath()));
+    checkBoxUsato->setChecked(product.getUsato());
 }
 
 void EditorFisico::emitSignalUpdate() {

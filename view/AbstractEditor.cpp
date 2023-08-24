@@ -18,12 +18,14 @@ AbstractEditor::AbstractEditor(MainWindow *mainWindow, AbstractProduct *subject,
     boxPrezzo->setMinimum(0.0);
     boxPrezzo->setMaximum(1000.0);
 
+    /*
     if (subject != nullptr) { // questo nel caso in cui questo editor venga usato durante la modifica di un prodotto.
         boxId->setValue(subject->getId());
         boxPrezzo->setValue(subject->getPrezzo());
         boxNome->setText(QString::fromStdString(subject->getNome()));
         boxImagePath->setText(QString::fromStdString(subject->getImagePath()));
     }
+    */
 }
 
 QSpinBox* AbstractEditor::getBoxId() const {
