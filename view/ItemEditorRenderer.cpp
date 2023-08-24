@@ -11,7 +11,10 @@
 ItemEditorRenderer::ItemEditorRenderer(MainWindow *mainWindow) : mainWindow(mainWindow) {}
 
 void ItemEditorRenderer::visit(Virtuale& prodotto) {
-    renderedEditor = new EditorVirtuale(mainWindow, &prodotto);
+    EditorVirtuale* editor = new EditorVirtuale(mainWindow, &prodotto);
+    ItemInjector* injector = new ItemInjector(editor);
+    prodotto.accept(*injector);
+    renderedEditor = editor;
 }
 
 void ItemEditorRenderer::visit(Fisico& prodotto) {
@@ -22,7 +25,10 @@ void ItemEditorRenderer::visit(Fisico& prodotto) {
 }
 
 void ItemEditorRenderer::visit(Noleggio& prodotto) {
-    renderedEditor = new EditorNoleggio(mainWindow, &prodotto);
+    EditorNoleggio* editor = new EditorNoleggio(mainWindow, &prodotto);
+    ItemInjector* injector = new ItemInjector(editor);
+    prodotto.accept(*injector);
+    renderedEditor = editor;
 }
 
 QWidget *ItemEditorRenderer::getRenderedEditor() const {

@@ -5,13 +5,23 @@
 #include <QLabel>
 
 class EditorVirtuale : public AbstractEditor {
+    Q_OBJECT
 private:
     QLabel* editorVirtuale;
 public:
-    EditorVirtuale(MainWindow* mainWindow, AbstractProduct* subject, QWidget* parent = nullptr);
+    EditorVirtuale(MainWindow* mainWindow, AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
     void injectItem(const Virtuale&);
-    virtual void update();
-    virtual void create();
+    virtual AbstractProduct* update();
+    virtual AbstractProduct* create();
+signals:
+    void signalUpdated(AbstractProduct*);
+    void signalCreated(AbstractProduct*);
+private slots:
+    void emitSignalUpdate();
+    void emitSignalCreate();
+public slots:
+    void updatedProduct(AbstractProduct*);
+    void CreatedProduct(AbstractProduct*);
 
 };
 

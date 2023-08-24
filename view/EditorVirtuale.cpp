@@ -1,4 +1,5 @@
 #include "EditorVirtuale.h"
+#include "model/Virtuale.h"
 #include <QVBoxLayout>
 #include <QFormLayout>
 
@@ -16,25 +17,73 @@ EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, AbstractProduct *subject,
     vbox->addLayout(form);
 
 
+    // aggiunta elementi al form
     form->addRow("id:", getBoxId());
     form->addRow("prezzo:", getBoxPrezzo());
     form->addRow("nome:", getBoxNome());
     form->addRow("imagePath:", getBoxImagePath());
-    form->addRow("quale editor:", editorVirtuale); // questo viene poi sostituito dagli oggetti specifici di ogni editor
-    form->addRow("apply changes:", getButtonApply());
-}
+    form->addRow("descrizione:", getBoxDescription());
+    // form->addRow("apply changes:", getButtonApply());
 
-void EditorVirtuale::update()
-{
-
-}
-
-void EditorVirtuale::create()
-{
+    // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
+    connect(this, SIGNAL(signalUpdated(AbstractProduct*)), this,  SLOT(updatedProduct(AbstractProduct*)));
 
 }
 
 void EditorVirtuale::injectItem(const Virtuale& product) {
 
+    // settare i campi delle box
+    getBoxId()->setValue(product.getId());
+    getBoxPrezzo()->setValue(product.getPrezzo());
+    getBoxNome()->setText(QString::fromStdString(product.getNome()));
+    getBoxImagePath()->setText(QString::fromStdString(product.getImagePath()));
+    getBoxDescription()->setText(QString::fromStdString(product.getDescription()));
+}
+
+AbstractProduct* EditorVirtuale::update() {
+    return create();
+}
+
+AbstractProduct* EditorVirtuale::create() {
+    return new Virtuale(getBoxId()->value(),
+               getBoxPrezzo()->value(),
+               getBoxNome()->text().toStdString(),
+               getBoxImagePath()->text().toStdString(),
+               getBoxDescription()->toPlainText().toStdString()
+               );
 
 }
+
+void EditorVirtuale::emitSignalUpdate() {
+    emit signalUpdated(getSubject());
+}
+
+void EditorVirtuale::emitSignalCreate() {
+    emit signalCreated(getSubject());
+}
+
+void EditorVirtuale::updatedProduct(AbstractProduct* product) {
+    // richiamare la funzione update
+    std::cout << "EditorVirtuale::updatedProduct()" << std::endl;
+    AbstractProduct* aux = update();
+
+    std::vector<AbstractProduct*>& memoria = getMainWindow()->getMemory();
+    std::vector<AbstractProduct*>::const_iterator cit = memoria.begin();
+
+    while ((*cit) != product) {
+        cit++;
+    }
+
+    memoria.erase(cit);
+    memoria.push_back(aux);
+    delete product;
+
+    getMainWindow()->clearResults();
+    getMainWindow()->search(nullptr);
+
+}
+
+void EditorVirtuale::CreatedProduct(AbstractProduct *) {
+
+}
+

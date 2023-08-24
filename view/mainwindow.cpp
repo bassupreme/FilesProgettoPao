@@ -18,6 +18,7 @@
 #include "EditorVirtuale.h"
 #include "EditorNoleggio.h"
 #include "ItemEditorRenderer.h"
+#include "ItemCreator.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // DATI DI TEST FAKE
@@ -68,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                 "New Item"
                 );
     create_item->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
-    create_item->setEnabled(false);
+    create_item->setEnabled(true);
 
 
     // SETUP DELLA TOOLBAR
@@ -113,6 +114,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // SEGNALI E SLOT
     // azioni grafiche
     connect(togge_toolbar, &QAction::triggered, this, &MainWindow::toggleToolbar);
+    connect(create_item, &QAction::triggered, this, &MainWindow::createProduct);
     search(nullptr);
 }
 
@@ -123,6 +125,10 @@ MainWindow::~MainWindow() {
 void MainWindow::clearResults() {
     clearStack();
     resultsWidget->clearResults();
+}
+
+std::vector<AbstractProduct *> &MainWindow::getMemory() {
+    return aux;
 }
 
 void MainWindow::showStatus(const std::string& message, const unsigned int duration) {
@@ -143,6 +149,35 @@ void MainWindow::toggleToolbar() {
     showStatus("Toolbar toggled.");
 }
 
+void MainWindow::createProduct() {
+    // DEBUG
+    std::cout << "MainWindow::updateProduct" << std::endl;
+
+    clearStack();
+
+    // CREAZIONE WIDGET CREATE
+    QWidget* container = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout();
+    ItemCreator* itemCreator = new ItemCreator(this);
+    layout->addWidget(itemCreator);
+    layout->setAlignment(itemCreator, Qt::AlignHCenter | Qt::AlignTop);
+    QPushButton* createItem = new QPushButton("CREATE PRODUCT");
+    layout->addWidget(createItem);
+    layout->setAlignment(createItem, Qt::AlignHCenter | Qt::AlignBottom);
+    connect(createItem, SIGNAL(clicked()), itemCreator, SLOT(create()));
+    container->setLayout(layout);
+
+    QScrollArea* area = new QScrollArea();
+    area->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    area->setWidgetResizable(true);
+    area->setWidget(container);
+    stackedWidget->addWidget(area);
+
+    stackedWidget->setCurrentIndex(1);
+    showStatus("Creating Item", 0);
+}
+
 void MainWindow::deleteProduct(AbstractProduct* product) {
     std::cout << "SLOT MAIN WINDOW" << std::endl;
     std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
@@ -150,21 +185,33 @@ void MainWindow::deleteProduct(AbstractProduct* product) {
 }
 
 void MainWindow::updateProduct(AbstractProduct* product) {
-    std::cout << "SLOT MAIN WINDOW" << std::endl;
+    // DEBUG
+    std::cout << "MainWindow::updateProduct" << std::endl;
     std::cout << "aggiornare prodotto: " << std::to_string(product->getId()) << std::endl;
+
     clearStack();
 
+    // CREAZIONE WIDGET EDIT
+    QWidget* container = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout();
     ItemEditorRenderer* renderer = new ItemEditorRenderer(this);
     product->accept(*renderer);
     QWidget* editor = renderer->getRenderedEditor();
+    layout->addWidget(editor);
+    layout->setAlignment(editor, Qt::AlignHCenter | Qt::AlignTop);
+    QPushButton* applyChanges = new QPushButton("APPLY CHANGES");
+    layout->addWidget(applyChanges);
+    layout->setAlignment(applyChanges, Qt::AlignHCenter | Qt::AlignBottom);
+    connect(applyChanges, SIGNAL(clicked()), editor, SLOT(emitSignalUpdate()));
+    container->setLayout(layout);
 
-    // connect(editor, SIGNAL(searchAll(Filter*)), this, SLOT(search(Filter*)));
     QScrollArea* area = new QScrollArea();
     area->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     area->setWidgetResizable(true);
-    area->setWidget(editor);
+    area->setWidget(container);
     stackedWidget->addWidget(area);
+
     stackedWidget->setCurrentIndex(1);
     showStatus("Editing Item", 0);
 }

@@ -10,6 +10,7 @@ AbstractEditor::AbstractEditor(MainWindow *mainWindow, AbstractProduct *subject,
     boxPrezzo = new QDoubleSpinBox();
     boxNome = new QLineEdit();
     boxImagePath = new QLineEdit();
+    boxDescription = new QTextEdit();
     buttonApply = new QPushButton("APPLY");
     // setup oggetti
     boxId->setMinimum(1);
@@ -42,6 +43,10 @@ QLineEdit *AbstractEditor::getBoxNome() const {
 
 QLineEdit *AbstractEditor::getBoxImagePath() const {
     return boxImagePath;
+}
+
+QTextEdit *AbstractEditor::getBoxDescription() const {
+    return boxDescription;
 }
 
 QPushButton *AbstractEditor::getButtonApply() const {

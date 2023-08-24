@@ -29,6 +29,7 @@ SOURCES += \
     view/EditorNoleggio.cpp \
     view/EditorVirtuale.cpp \
     view/FilterWidget.cpp \
+    view/ItemCreator.cpp \
     view/ItemEditorRenderer.cpp \
     view/ItemInjector.cpp \
     view/ItemRenderer.cpp \

@@ -12,9 +12,9 @@ class EditorFisico : public AbstractEditor {
 private:
     QCheckBox* checkBoxUsato;
 public:
-    EditorFisico(MainWindow* mainWindow, AbstractProduct* subject, QWidget* parent = nullptr);
-    virtual void update(); // modifica del prodotto
-    virtual void create(); // creazione del prodotto
+    EditorFisico(MainWindow* mainWindow, AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
+    virtual AbstractProduct* update(); // modifica del prodotto
+    virtual AbstractProduct* create(); // creazione del prodotto
     void injectItem(const Fisico&);
 private slots:
     void emitSignalUpdate();

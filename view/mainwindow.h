@@ -31,7 +31,9 @@ public:
     ~MainWindow();
     void clearResults();
 public slots:
+    std::vector<AbstractProduct*>& getMemory();
     void toggleToolbar();
+    void createProduct();
     void deleteProduct(AbstractProduct*);
     void updateProduct(AbstractProduct*);
     void search(Filter*);

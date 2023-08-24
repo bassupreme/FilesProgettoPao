@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <iostream>
 
+
 EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
     // setup oggetti grafici di questo editor specifico
     checkBoxUsato = new QCheckBox("usato");
@@ -19,25 +20,35 @@ EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWi
     form->setLabelAlignment(Qt::AlignRight | Qt::AlignVCenter);
     vbox->addLayout(form);
 
-
     form->addRow("id:", getBoxId());
     form->addRow("prezzo:", getBoxPrezzo());
     form->addRow("nome:", getBoxNome());
     form->addRow("imagePath:", getBoxImagePath());
+    form->addRow("descrizione:", getBoxDescription());
     form->addRow("usato", checkBoxUsato);
-    form->addRow("apply changes:", getButtonApply());
+    // form->addRow("apply changes:", getButtonApply());
 
-    connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
+    // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
     connect(this, SIGNAL(signalUpdated(AbstractProduct*)), this,  SLOT(updatedProduct(AbstractProduct*)));
+
 }
 
-void EditorFisico::update() {
+AbstractProduct* EditorFisico::update() {
     // prendere il subject e modificarlo a seconda dei parametri appena immessi
     std::cout << "EditorFisico::update()" << std::endl;
+    return create();
+
 }
 
-void EditorFisico::create() {
+AbstractProduct* EditorFisico::create() {
     std::cout << "EditorFisico::create()" << std::endl;
+    return new Fisico(getBoxId()->value(),
+               getBoxPrezzo()->value(),
+               getBoxNome()->text().toStdString(),
+               getBoxImagePath()->text().toStdString(),
+               getBoxDescription()->toPlainText().toStdString(),
+               checkBoxUsato->isChecked());
+
 }
 
 void EditorFisico::injectItem(const Fisico& product) {
@@ -46,6 +57,7 @@ void EditorFisico::injectItem(const Fisico& product) {
     getBoxPrezzo()->setValue(product.getPrezzo());
     getBoxNome()->setText(QString::fromStdString(product.getNome()));
     getBoxImagePath()->setText(QString::fromStdString(product.getImagePath()));
+    getBoxDescription()->setText(QString::fromStdString(product.getDescription()));
     checkBoxUsato->setChecked(product.getUsato());
 }
 
@@ -57,12 +69,23 @@ void EditorFisico::emitSignalCreate() {
 
 }
 
-void EditorFisico::updatedProduct(AbstractProduct *) {
+void EditorFisico::updatedProduct(AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorFisico::updatedProduct()" << std::endl;
-    update();
-    MainWindow* w = getMainWindow();
-    w->clearResults();
+    AbstractProduct* aux = update();
+
+    std::vector<AbstractProduct*>& memoria = getMainWindow()->getMemory();
+    std::vector<AbstractProduct*>::const_iterator cit = memoria.begin();
+
+    while ((*cit) != product) {
+        cit++;
+    }
+
+    memoria.erase(cit);
+    memoria.push_back(aux);
+    delete product;
+
+    getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
 }
 
