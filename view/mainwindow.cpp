@@ -7,6 +7,7 @@
 #include <QAction>
 #include <QPixmap>
 #include <QIcon>
+#include <QFileDialog>
 #include <iostream>
 
 // inclusioni di test
@@ -114,6 +115,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // SEGNALI E SLOT
     // azioni grafiche
     connect(togge_toolbar, &QAction::triggered, this, &MainWindow::toggleToolbar);
+    connect(create, &QAction::triggered, this, &MainWindow::createDataset);
+    connect(open, &QAction::triggered, this, &MainWindow::openDataset);
     connect(create_item, &QAction::triggered, this, &MainWindow::createProduct);
     search(nullptr);
 }
@@ -123,12 +126,51 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::clearResults() {
-    clearStack();
+    // clearStack();
     resultsWidget->clearResults();
 }
 
 std::vector<AbstractProduct *> &MainWindow::getMemory() {
     return aux;
+}
+
+void MainWindow::createDataset() {
+    QString path = QFileDialog::getSaveFileName(
+                this,
+                "Creates new Dataset",
+                "./",
+                "JSON files *.json"
+                );
+    if (!path.isEmpty()) {
+        std::cout << path.toStdString() << std::endl;
+    }
+    if(!aux.empty()) {
+        std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
+        for(; cit != aux.end(); cit++) {
+            delete *cit;
+        }
+        aux.clear();
+    }
+}
+
+void MainWindow::openDataset() {
+    QString path = QFileDialog::getOpenFileName(
+        this,
+        "Creates new Dataset",
+        "./",
+        "JSON files *.json"
+    );
+    if (!path.isEmpty()) {
+        std::cout << path.toStdString() << std::endl;
+    }
+    if (!aux.empty()) {
+        std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
+        for(; cit != aux.end(); cit++) {
+            delete *cit;
+        }
+        aux.clear();
+    }
+
 }
 
 void MainWindow::showStatus(const std::string& message, const unsigned int duration) {
@@ -182,6 +224,16 @@ void MainWindow::deleteProduct(AbstractProduct* product) {
     std::cout << "SLOT MAIN WINDOW" << std::endl;
     std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
     resultsWidget->deleteResult(product);
+    std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
+    while((*cit) != product) {
+        cit++;
+    }
+
+    std::cout << "MainWindow::deleteProduct() : eliminare prodotto con id: " << (*cit)->getId() << std::endl;
+    delete product;
+    aux.erase(cit);
+    std::cout << "buffer size: " << aux.size() << std::endl;
+
 }
 
 void MainWindow::updateProduct(AbstractProduct* product) {
@@ -216,10 +268,10 @@ void MainWindow::updateProduct(AbstractProduct* product) {
     showStatus("Editing Item", 0);
 }
 
-void MainWindow::search(Filter *) {
+void MainWindow::search(Filter* filter) {
+    if (filter == nullptr) {
         resultsWidget->renderResults(aux);
-    stackedWidget->setCurrentIndex(0);
-    clearStack();
+        stackedWidget->setCurrentIndex(0);
+        clearStack();
+    }
 }
-
-

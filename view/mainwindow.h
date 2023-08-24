@@ -32,6 +32,8 @@ public:
     void clearResults();
 public slots:
     std::vector<AbstractProduct*>& getMemory();
+    void createDataset();
+    void openDataset();
     void toggleToolbar();
     void createProduct();
     void deleteProduct(AbstractProduct*);

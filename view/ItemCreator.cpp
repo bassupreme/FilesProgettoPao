@@ -1,4 +1,5 @@
 #include "ItemCreator.h"
+#include "AbstractEditor.h"
 #include "EditorFisico.h"
 #include "EditorVirtuale.h"
 #include "EditorNoleggio.h"
@@ -44,6 +45,13 @@ ItemCreator::ItemCreator(MainWindow* mainWindow, QWidget* parent) : QWidget(pare
 
 void ItemCreator::create() {
     // logica per creare il tutto
+    AbstractEditor* editor = editors[stackedEditors->currentIndex()];
+    AbstractProduct* createdProduct = editor->create();
+    std::vector<AbstractProduct*>& memory = mainWindow->getMemory();
+    memory.push_back(createdProduct);
+
+    mainWindow->clearResults();
+    mainWindow->search(nullptr);
 }
 
 void ItemCreator::showType(int index) {

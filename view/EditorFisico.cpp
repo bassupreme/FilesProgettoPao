@@ -89,8 +89,7 @@ void EditorFisico::updatedProduct(AbstractProduct* product) {
     getMainWindow()->search(nullptr);
 }
 
-void EditorFisico::CreatedProduct(AbstractProduct *)
-{
+void EditorFisico::CreatedProduct(AbstractProduct *) {
 
 }
 
