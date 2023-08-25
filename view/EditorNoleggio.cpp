@@ -99,6 +99,6 @@ void EditorNoleggio::updatedProduct(AbstractProduct* product) {
 }
 
 void EditorNoleggio::CreatedProduct(AbstractProduct* product) {
-
+    product = nullptr; // solo ed esclusivamente a scopo di debug
 }
 

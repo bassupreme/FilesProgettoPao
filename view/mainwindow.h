@@ -48,6 +48,7 @@ public slots:
     Buffer *getBuffer();
     void createDataset();
     void openDataset();
+    void writeDataset();
     void toggleToolbar();
     void createProduct();
     void deleteProduct(AbstractProduct*);

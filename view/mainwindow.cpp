@@ -123,6 +123,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buffer(nullptr), 
     connect(create, &QAction::triggered, this, &MainWindow::createDataset);
     connect(open, &QAction::triggered, this, &MainWindow::openDataset);
     connect(createItem, &QAction::triggered, this, &MainWindow::createProduct);
+    connect(save, &QAction::triggered, this, &MainWindow::writeDataset);
     // search(nullptr);
 }
 
@@ -159,9 +160,21 @@ void MainWindow::createDataset() {
     if (!path.isEmpty()) {
         std::cout << path.toStdString() << std::endl;
     }
-    if(buffer->empty()) {
+    if(buffer != nullptr) {
         buffer->clear();
+        delete buffer;
     }
+    if (jsonFile != nullptr) {
+        delete jsonFile;
+    }
+
+    jsonFile = new JsonFile(path.toStdString());
+    buffer = new Buffer();
+    resultsWidget->clearResults();
+    search(nullptr);
+    createItem->setEnabled(true);
+    showStatus("New dataset created.", 3000);
+
 }
 
 void MainWindow::openDataset() {
@@ -189,6 +202,21 @@ void MainWindow::openDataset() {
     search(nullptr);
 
     // eliminazione elementi che non servono
+    delete reader;
+    delete converter;
+}
+
+void MainWindow::writeDataset() {
+    if (jsonFile == nullptr || buffer == nullptr) {
+        std::cout << "IMPOSSIBILE SCRIVERE UN FILE INESISTENTE" << std::endl;
+        return;
+    }
+
+    JsonReader* reader = new JsonReader();
+    IConverter* converter = new JsonConverter(reader);
+    jsonFile->WriteTo(buffer->readAll(), *converter);
+
+    // potrei mettere all'interno del distruttore di JsonFile la deallocazione del converter e del reader.
     delete reader;
     delete converter;
 }
