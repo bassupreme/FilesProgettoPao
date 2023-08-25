@@ -8,6 +8,7 @@ class Noleggio;
 
 class IVisitor {
 public:
+    virtual ~IVisitor() {}
     virtual void visit(Virtuale&) = 0;
     virtual void visit(Fisico&) = 0;
     virtual void visit(Noleggio&) = 0;

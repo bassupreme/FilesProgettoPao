@@ -10,7 +10,9 @@ void Buffer::destroy(const std::map<unsigned int, AbstractProduct*>& b) {
     }
 }
 
-Buffer::Buffer() {}
+Buffer::Buffer() {
+
+}
 
 Buffer::~Buffer() {
     destroy(memoryBuffer);
@@ -50,6 +52,13 @@ Buffer& Buffer::modify(const unsigned int key, AbstractProduct* product) {
 
 const std::map<unsigned int, AbstractProduct*>& Buffer::getMemoryBuffer() const {
     return memoryBuffer;
+}
+
+void Buffer::load(const std::vector<AbstractProduct*>& aux) {
+    for(std::vector<AbstractProduct*>::const_iterator cit = aux.begin(); cit != aux.end(); cit++) {
+        std::cout << (*cit)->getId() << " | " << (*cit)->getNome() << std::endl;
+        memoryBuffer[(*cit)->getId()] = (*cit);
+    }
 }
 
 std::vector<AbstractProduct*> Buffer::readAll() const {

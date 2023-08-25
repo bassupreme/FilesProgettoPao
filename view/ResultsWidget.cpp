@@ -29,7 +29,7 @@ ResultsWidget::ResultsWidget(QMainWindow* mainWindow, QWidget* parent) : QWidget
     setLayout(verticalLayout);
 }
 
-void ResultsWidget::renderResults(std::vector<AbstractProduct *>& results) {
+void ResultsWidget::renderResults(const std::vector<AbstractProduct*>& results) {
 
     for(std::vector<AbstractProduct*>::const_iterator cit = results.begin(); cit != results.end(); cit++) {
 

@@ -67,6 +67,11 @@ void EditorVirtuale::updatedProduct(AbstractProduct* product) {
     std::cout << "EditorVirtuale::updatedProduct()" << std::endl;
     AbstractProduct* aux = update();
 
+    Buffer* buffer = getMainWindow()->getBuffer();
+    buffer->remove(product->getId());
+    buffer->insert(aux->getId(), aux);
+
+    /*
     std::vector<AbstractProduct*>& memoria = getMainWindow()->getMemory();
     std::vector<AbstractProduct*>::const_iterator cit = memoria.begin();
 
@@ -80,7 +85,7 @@ void EditorVirtuale::updatedProduct(AbstractProduct* product) {
 
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
-
+    */
 }
 
 void EditorVirtuale::CreatedProduct(AbstractProduct *) {

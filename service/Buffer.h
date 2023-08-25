@@ -18,7 +18,9 @@ public:
     const AbstractProduct* get(const unsigned int) const;
     Buffer& modify(const unsigned int, AbstractProduct*);
     const std::map<unsigned int, AbstractProduct*>& getMemoryBuffer() const;
+    void load(const std::vector<AbstractProduct*>&);
     std::vector<AbstractProduct*> readAll() const;
+
     void clear();
     bool empty() const;
 };

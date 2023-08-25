@@ -14,6 +14,8 @@
 #include "model/Fisico.h"
 #include "model/Virtuale.h"
 #include "model/Noleggio.h"
+#include "filePersistence/JsonReader.h"
+#include "filePersistence/JsonConverter.h"
 #include "TestProductEditor.h"
 #include "EditorFisico.h"
 #include "EditorVirtuale.h"
@@ -21,8 +23,10 @@
 #include "ItemEditorRenderer.h"
 #include "ItemCreator.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buffer(nullptr), jsonFile(nullptr) {
     // DATI DI TEST FAKE
+    /*
     AbstractProduct* p1 =  new Noleggio(1, 9.5, "pc", "path", "descrizione", true, "negizio", "io");
     AbstractProduct* p2 =   new Fisico(2, 2.0, "chitarra", "path", "descrizione");
     AbstractProduct* p3 =   new Noleggio(3, 2.0, "casse", "path", "descrizione", "negozio");
@@ -34,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     aux.push_back(p3);
     aux.push_back(p4);
     aux.push_back(p5);
+    */
 
 
     // Actions
@@ -65,12 +70,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction* togge_toolbar = new QAction(
                 "Toolbar"
                 );
-    QAction* create_item = new QAction(
+    createItem = new QAction(
                 QIcon(QPixmap((":/assets/icons/new_item.svg"))),
                 "New Item"
                 );
-    create_item->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
-    create_item->setEnabled(true);
+    createItem ->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
+    createItem ->setEnabled(false);
 
 
     // SETUP DELLA TOOLBAR
@@ -80,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     toolbar->addAction(save);
     toolbar->addAction(save_as);
     toolbar->addSeparator();
-    toolbar->addAction(create_item);
+    toolbar->addAction(createItem);
     toolbar->addSeparator();
     toolbar->addAction(close);
 
@@ -117,8 +122,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(togge_toolbar, &QAction::triggered, this, &MainWindow::toggleToolbar);
     connect(create, &QAction::triggered, this, &MainWindow::createDataset);
     connect(open, &QAction::triggered, this, &MainWindow::openDataset);
-    connect(create_item, &QAction::triggered, this, &MainWindow::createProduct);
-    search(nullptr);
+    connect(createItem, &QAction::triggered, this, &MainWindow::createProduct);
+    // search(nullptr);
 }
 
 MainWindow::~MainWindow() {
@@ -130,9 +135,19 @@ void MainWindow::clearResults() {
     resultsWidget->clearResults();
 }
 
+void MainWindow::setHasUnsavedChanges(const bool& unsavedChanges) {
+    hasUnsavedChanges = unsavedChanges;
+}
+
+Buffer *MainWindow::getBuffer() {
+    return buffer;
+}
+
+/*
 std::vector<AbstractProduct *> &MainWindow::getMemory() {
     return aux;
 }
+*/
 
 void MainWindow::createDataset() {
     QString path = QFileDialog::getSaveFileName(
@@ -144,12 +159,8 @@ void MainWindow::createDataset() {
     if (!path.isEmpty()) {
         std::cout << path.toStdString() << std::endl;
     }
-    if(!aux.empty()) {
-        std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
-        for(; cit != aux.end(); cit++) {
-            delete *cit;
-        }
-        aux.clear();
+    if(buffer->empty()) {
+        buffer->clear();
     }
 }
 
@@ -163,14 +174,23 @@ void MainWindow::openDataset() {
     if (!path.isEmpty()) {
         std::cout << path.toStdString() << std::endl;
     }
-    if (!aux.empty()) {
-        std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
-        for(; cit != aux.end(); cit++) {
-            delete *cit;
-        }
-        aux.clear();
+    if (buffer != nullptr) {
+        buffer->clear(); // clear del buffer
     }
+    buffer = new Buffer();
+    jsonFile = new JsonFile(path.toStdString());
+    JsonReader* reader = new JsonReader();
+    IConverter* converter = new JsonConverter(reader);
+    std::vector<AbstractProduct*> aux = jsonFile->ReadFrom(*converter);
+    buffer->load(aux);
+    createItem->setEnabled(true);
 
+    // chiamata del metodo per caricare i risultati
+    search(nullptr);
+
+    // eliminazione elementi che non servono
+    delete reader;
+    delete converter;
 }
 
 void MainWindow::showStatus(const std::string& message, const unsigned int duration) {
@@ -224,6 +244,9 @@ void MainWindow::deleteProduct(AbstractProduct* product) {
     std::cout << "SLOT MAIN WINDOW" << std::endl;
     std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
     resultsWidget->deleteResult(product);
+    buffer->remove(product->getId());
+
+    /*
     std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
     while((*cit) != product) {
         cit++;
@@ -233,7 +256,7 @@ void MainWindow::deleteProduct(AbstractProduct* product) {
     delete product;
     aux.erase(cit);
     std::cout << "buffer size: " << aux.size() << std::endl;
-
+    */
 }
 
 void MainWindow::updateProduct(AbstractProduct* product) {
@@ -266,11 +289,14 @@ void MainWindow::updateProduct(AbstractProduct* product) {
 
     stackedWidget->setCurrentIndex(1);
     showStatus("Editing Item", 0);
+
+    // eliminazione oggetti non utili
+    delete renderer;
 }
 
 void MainWindow::search(Filter* filter) {
     if (filter == nullptr) {
-        resultsWidget->renderResults(aux);
+        resultsWidget->renderResults(buffer->readAll());
         stackedWidget->setCurrentIndex(0);
         clearStack();
     }

@@ -23,7 +23,7 @@ public:
     AbstractProduct(const unsigned int i, float p, std::string n, std::string path, std::string description);
     virtual ~AbstractProduct();
     // getters e setters
-    const unsigned int getId() const;
+    unsigned int getId() const;
     const float& getPrezzo() const;
     AbstractProduct& setPrezzo(const float& p);
     const std::string& getNome() const;

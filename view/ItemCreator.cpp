@@ -47,8 +47,18 @@ void ItemCreator::create() {
     // logica per creare il tutto
     AbstractEditor* editor = editors[stackedEditors->currentIndex()];
     AbstractProduct* createdProduct = editor->create();
-    std::vector<AbstractProduct*>& memory = mainWindow->getMemory();
-    memory.push_back(createdProduct);
+    Buffer* buffer = mainWindow->getBuffer();
+
+    if (!buffer->exists(createdProduct->getId())) {
+        buffer->insert(createdProduct->getId(), createdProduct);
+        mainWindow->setHasUnsavedChanges(true);
+    } else {
+        // DEBUG
+        std::cout << "ItemCreator::create()" << std::endl;
+        std::cout << "IMPOSSIBILE INSERIRE IL PRODOTTO" << std::endl;
+        std::cout << "esiste gia' un prodotto con quell'id." << std::endl;
+        mainWindow->setHasUnsavedChanges(false);
+    }
 
     mainWindow->clearResults();
     mainWindow->search(nullptr);
