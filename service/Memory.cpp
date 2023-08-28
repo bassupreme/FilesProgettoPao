@@ -1,12 +1,12 @@
 #include "Memory.h"
 
 
-Memory& Memory::add(AbstractProduct* product) {
+Memory& Memory::add(const AbstractProduct* product) {
     container.add(product);
     return *this;
 }
 
-Memory &Memory::remove(AbstractProduct* product){
+Memory &Memory::remove(const AbstractProduct* product) {
     container.remove(product);
     return *this;
 }
@@ -23,6 +23,10 @@ std::vector<const AbstractProduct *> Memory::search(Filter* filtro) {
         head = head->getNext();
     }
     return aux;
+}
+
+bool Memory::empty() const {
+    return (container.getHead() == nullptr);
 }
 
 

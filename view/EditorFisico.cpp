@@ -6,7 +6,7 @@
 #include <iostream>
 
 
-EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
+EditorFisico::EditorFisico(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
     // setup oggetti grafici di questo editor specifico
     checkBoxUsato = new QCheckBox("usato");
 
@@ -29,7 +29,7 @@ EditorFisico::EditorFisico(MainWindow *mainWindow, AbstractProduct *subject, QWi
     // form->addRow("apply changes:", getButtonApply());
 
     // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
-    connect(this, SIGNAL(signalUpdated(AbstractProduct*)), this,  SLOT(updatedProduct(AbstractProduct*)));
+    connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
 
 }
 
@@ -65,18 +65,20 @@ void EditorFisico::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
-void EditorFisico::emitSignalCreate() {
-
-}
-
-void EditorFisico::updatedProduct(AbstractProduct* product) {
+void EditorFisico::updatedProduct(const AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorFisico::updatedProduct()" << std::endl;
+    // vecchio prodotto
     AbstractProduct* aux = update();
 
+    // prodotto nuovo
     Buffer* buffer = getMainWindow()->getBuffer();
     buffer->remove(product->getId());
     buffer->insert(aux->getId(), aux);
+
+    Memory& memory = getMainWindow()->getMemory();
+    memory.remove(product);
+    memory.add(aux);
 
     /*
     std::vector<AbstractProduct*>& memoria = getMainWindow()->getMemory();
@@ -94,8 +96,3 @@ void EditorFisico::updatedProduct(AbstractProduct* product) {
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
 }
-
-void EditorFisico::CreatedProduct(AbstractProduct *) {
-
-}
-

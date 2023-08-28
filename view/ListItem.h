@@ -10,14 +10,14 @@ class ListItem : public QWidget {
     Q_OBJECT
 private:
     // QWidget* widget; // rendered widget
-    AbstractProduct* product; // puntatore al prodotto da rappresentare
+    const AbstractProduct* product; // puntatore al prodotto da rappresentare
     QPushButton* editButton;
     QPushButton* deleteButton;
     QVBoxLayout* infoLayout;
     unsigned int idListItem; // non so se usarlo o meno.
 public:
     virtual ~ListItem();
-    ListItem(AbstractProduct* product, QWidget* parent = nullptr);
+    ListItem(const AbstractProduct* product, QWidget* parent = nullptr);
     const AbstractProduct* getProduct() const;
     // QWidget* getWidget() const;
     QPushButton* getEditButton() const;
@@ -27,8 +27,8 @@ private slots:
     void emitUpdateSignal();
 
 signals:
-    void deletedProduct(AbstractProduct* product);
-    void updatedProduct(AbstractProduct* product);
+    void deletedProduct(const AbstractProduct* product);
+    void updatedProduct(const AbstractProduct* product);
 };
 
 #endif // LISTITEM_H

@@ -6,15 +6,15 @@
 #include "mainwindow.h"
 #include <QWidget>
 
-class ItemEditorRenderer : public IVisitor {
+class ItemEditorRenderer : public IConstVisitor {
 private:
     MainWindow* mainWindow;
     AbstractEditor* renderedEditor;
 public:
     ItemEditorRenderer(MainWindow* mainWindow);
-    virtual void visit(Virtuale&);
-    virtual void visit(Fisico&);
-    virtual void visit(Noleggio&);
+    virtual void visit(const Virtuale&);
+    virtual void visit(const Fisico&);
+    virtual void visit(const Noleggio&);
     QWidget* getRenderedEditor() const;
 };
 

@@ -29,15 +29,15 @@ ResultsWidget::ResultsWidget(QMainWindow* mainWindow, QWidget* parent) : QWidget
     setLayout(verticalLayout);
 }
 
-void ResultsWidget::renderResults(const std::vector<AbstractProduct*>& results) {
+void ResultsWidget::renderResults(const std::vector<const AbstractProduct*>& results) {
 
-    for(std::vector<AbstractProduct*>::const_iterator cit = results.begin(); cit != results.end(); cit++) {
+    for(std::vector<const AbstractProduct*>::const_iterator cit = results.begin(); cit != results.end(); cit++) {
 
         // creazione widget
         ListItem* listItem = new ListItem(*cit, this);
 
-        connect(listItem, SIGNAL(deletedProduct(AbstractProduct*)), mainWindow, SLOT(deleteProduct(AbstractProduct*)));
-        connect(listItem, SIGNAL(updatedProduct(AbstractProduct*)), mainWindow, SLOT(updateProduct(AbstractProduct*)));
+        connect(listItem, SIGNAL(deletedProduct(const AbstractProduct*)), mainWindow, SLOT(deleteProduct(const AbstractProduct*)));
+        connect(listItem, SIGNAL(updatedProduct(const AbstractProduct*)), mainWindow, SLOT(updateProduct(const AbstractProduct*)));
 
         // personalizzazione widget
         // QSizePolicy widgetPolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);

@@ -51,6 +51,7 @@ void ItemCreator::create() {
 
     if (!buffer->exists(createdProduct->getId())) {
         buffer->insert(createdProduct->getId(), createdProduct);
+        mainWindow->getMemory().add(createdProduct);
         mainWindow->setHasUnsavedChanges(true);
     } else {
         // DEBUG

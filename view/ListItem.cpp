@@ -13,7 +13,7 @@ ListItem::~ListItem() {
     // delete infoLayout;
 }
 
-ListItem::ListItem(AbstractProduct* product, QWidget* parent) : QWidget(parent), product(product) {
+ListItem::ListItem(const AbstractProduct* product, QWidget* parent) : QWidget(parent), product(product) {
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
@@ -50,6 +50,8 @@ ListItem::ListItem(AbstractProduct* product, QWidget* parent) : QWidget(parent),
     layout->setAlignment(image, Qt::AlignLeft | Qt::AlignTop);
     layout->setAlignment(infoLayout, Qt::AlignCenter| Qt::AlignTop);
 
+    // eliminazione oggetti
+    delete renderer;
 }
 
 const AbstractProduct *ListItem::getProduct() const {

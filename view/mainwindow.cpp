@@ -24,7 +24,7 @@
 #include "ItemCreator.h"
 
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buffer(nullptr), jsonFile(nullptr) {
+MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), buffer(nullptr), memory(memory), jsonFile(nullptr) {
     // DATI DI TEST FAKE
     /*
     AbstractProduct* p1 =  new Noleggio(1, 9.5, "pc", "path", "descrizione", true, "negizio", "io");
@@ -124,6 +124,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buffer(nullptr), 
     connect(open, &QAction::triggered, this, &MainWindow::openDataset);
     connect(createItem, &QAction::triggered, this, &MainWindow::createProduct);
     connect(save, &QAction::triggered, this, &MainWindow::writeDataset);
+    connect(filterWidget, SIGNAL(signalFilter(Filter*)), this, SLOT(search(Filter*)));
+    connect(filterWidget, SIGNAL(signalCleared(Filter*)), this, SLOT(search(Filter*)));
     // search(nullptr);
 }
 
@@ -140,8 +142,12 @@ void MainWindow::setHasUnsavedChanges(const bool& unsavedChanges) {
     hasUnsavedChanges = unsavedChanges;
 }
 
-Buffer *MainWindow::getBuffer() {
+Buffer *MainWindow::getBuffer() const {
     return buffer;
+}
+
+Memory& MainWindow::getMemory() const {
+    return memory;
 }
 
 /*
@@ -190,12 +196,29 @@ void MainWindow::openDataset() {
     if (buffer != nullptr) {
         buffer->clear(); // clear del buffer
     }
+    if (!memory.empty()) {
+        memory.clear();
+    }
+
+    // creazione buffer di memoria
     buffer = new Buffer();
+    // creazione puntatore a file
     jsonFile = new JsonFile(path.toStdString());
+
+    // lettura dal file
     JsonReader* reader = new JsonReader();
     IConverter* converter = new JsonConverter(reader);
     std::vector<AbstractProduct*> aux = jsonFile->ReadFrom(*converter);
+
+    // caricamento buffer e contenitore per la ricerca.
     buffer->load(aux);
+    for(std::map<unsigned int, AbstractProduct*>::const_iterator cit = buffer->getMemoryBuffer().begin();
+        cit != buffer->getMemoryBuffer().end();
+        cit++) {
+        memory.add(cit->second);
+    }
+
+    // attivare la creazione di un elemento.
     createItem->setEnabled(true);
 
     // chiamata del metodo per caricare i risultati
@@ -215,6 +238,12 @@ void MainWindow::writeDataset() {
     JsonReader* reader = new JsonReader();
     IConverter* converter = new JsonConverter(reader);
     jsonFile->WriteTo(buffer->readAll(), *converter);
+
+    // settare flag di cambiamenti a falso
+    setHasUnsavedChanges(false);
+
+    // mostrare status nella statusbar
+    showStatus("dataset salvato", 5000);
 
     // potrei mettere all'interno del distruttore di JsonFile la deallocazione del converter e del reader.
     delete reader;
@@ -241,7 +270,7 @@ void MainWindow::toggleToolbar() {
 
 void MainWindow::createProduct() {
     // DEBUG
-    std::cout << "MainWindow::updateProduct" << std::endl;
+    std::cout << "MainWindow::createProduct" << std::endl;
 
     clearStack();
 
@@ -268,7 +297,7 @@ void MainWindow::createProduct() {
     showStatus("Creating Item", 0);
 }
 
-void MainWindow::deleteProduct(AbstractProduct* product) {
+void MainWindow::deleteProduct(const AbstractProduct* product) {
     std::cout << "SLOT MAIN WINDOW" << std::endl;
     std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
     resultsWidget->deleteResult(product);
@@ -287,7 +316,7 @@ void MainWindow::deleteProduct(AbstractProduct* product) {
     */
 }
 
-void MainWindow::updateProduct(AbstractProduct* product) {
+void MainWindow::updateProduct(const AbstractProduct* product) {
     // DEBUG
     std::cout << "MainWindow::updateProduct" << std::endl;
     std::cout << "aggiornare prodotto: " << std::to_string(product->getId()) << std::endl;
@@ -323,9 +352,16 @@ void MainWindow::updateProduct(AbstractProduct* product) {
 }
 
 void MainWindow::search(Filter* filter) {
+
+    resultsWidget->clearResults();
     if (filter == nullptr) {
         resultsWidget->renderResults(buffer->readAll());
         stackedWidget->setCurrentIndex(0);
         clearStack();
+    } else {
+        // ricerca memory.
+        std::cout << "RICERCA CON FILTRO" << std::endl;
+        const std::vector<const AbstractProduct*> results = memory.search(filter);
+        resultsWidget->renderResults(results);
     }
 }

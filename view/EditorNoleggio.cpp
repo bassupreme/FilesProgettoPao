@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QFormLayout>
 
-EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, AbstractProduct* subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
+EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
     // setup oggetti grafici di questo editor specifico
     checkBoxUsato = new QCheckBox();
     boxNoleggiante = new QLineEdit();
@@ -30,7 +30,7 @@ EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, AbstractProduct* subject,
     // form->addRow("apply changes:", getButtonApply());
 
     // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
-    connect(this, SIGNAL(signalUpdated(AbstractProduct*)), this,  SLOT(updatedProduct(AbstractProduct*)));
+    connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
 
 }
 
@@ -67,11 +67,7 @@ void EditorNoleggio::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
-void EditorNoleggio::emitSignalCreate() {
-    emit signalCreated(getSubject());
-}
-
-void EditorNoleggio::updatedProduct(AbstractProduct* product) {
+void EditorNoleggio::updatedProduct(const AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorNoleggio::updatedProduct()" << std::endl;
     AbstractProduct* aux = update();
@@ -79,6 +75,10 @@ void EditorNoleggio::updatedProduct(AbstractProduct* product) {
     Buffer* buffer = getMainWindow()->getBuffer();
     buffer->remove(product->getId());
     buffer->insert(aux->getId(), aux);
+
+    Memory& memory = getMainWindow()->getMemory();
+    memory.remove(product);
+    memory.add(aux);
 
     /*
 
@@ -93,12 +93,7 @@ void EditorNoleggio::updatedProduct(AbstractProduct* product) {
     memoria.push_back(aux);
     delete product;
 
+    */
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
-    */
 }
-
-void EditorNoleggio::CreatedProduct(AbstractProduct* product) {
-    product = nullptr; // solo ed esclusivamente a scopo di debug
-}
-

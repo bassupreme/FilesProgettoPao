@@ -14,9 +14,12 @@ Filter& Filter::addMatcher(const IMatcher* matcher) {
 }
 
 bool Filter::matchesAll(const AbstractProduct& product) const {
-    std::vector<const IMatcher*>::const_iterator it = matchers.begin();
-    for (; it != matchers.end(); it++) {
-        if (!(*it)->hasMatch(product)) return false;
+    if (matchers.size() > 0) {
+        std::vector<const IMatcher*>::const_iterator it = matchers.begin();
+        for (; it != matchers.end(); it++) {
+            if (!(*it)->hasMatch(product)) return false;
+        }
+        return true;
     }
     return true; // in caso passa tutti i controlli
 }

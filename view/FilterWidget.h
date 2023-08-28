@@ -3,20 +3,25 @@
 
 #include <QWidget>
 #include <QLineEdit>
-#include <QSpinBox>
+#include <QDoubleSpinBox>
 #include <QPushButton>
+#include <QCheckBox>
 #include "service/Filter.h"
 
 class FilterWidget : public QWidget {
     Q_OBJECT
 private:
     bool hasControl;
+    QCheckBox* searchEnabled;
     QLineEdit* searchBar;
-    QSpinBox* lowerBox;
-    QSpinBox* upperBox;
+    QCheckBox* priceEnabled;
+    QDoubleSpinBox* lowerBox;
+    QDoubleSpinBox* upperBox;
     QPushButton* clearFilter;
     QPushButton* applyFilter;
     Filter* currentFilter;
+    void clearCurrentFilter();
+    void filterInitialSetup();
 public:
     ~FilterWidget();
     FilterWidget(QWidget* parent = nullptr);
@@ -30,8 +35,14 @@ public:
     void setHasControl(const bool);
     Filter* getCurrentFilter() const;
     */
+private slots:
+    void emitSignalFilter();
+    void enableSearchInput();
+    void enablePriceInput();
+    void clearFilterWidget();
 signals:
     void signalFilter(Filter*);
+    void signalCleared(Filter*);
 };
 
 #endif // FILTERWIDGET_H

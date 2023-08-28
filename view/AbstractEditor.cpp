@@ -4,7 +4,7 @@ AbstractEditor::~AbstractEditor() {
 
 }
 
-AbstractEditor::AbstractEditor(MainWindow *mainWindow, AbstractProduct *subject, QWidget *parent) : QWidget(parent), mainWindow(mainWindow), subject(subject) {
+AbstractEditor::AbstractEditor(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : QWidget(parent), mainWindow(mainWindow), subject(subject) {
 
     boxId = new QSpinBox();
     boxPrezzo = new QDoubleSpinBox();
@@ -53,7 +53,7 @@ QPushButton *AbstractEditor::getButtonApply() const {
     return buttonApply;
 }
 
-AbstractProduct *AbstractEditor::getSubject() const {
+const AbstractProduct *AbstractEditor::getSubject() const {
     return subject;
 }
 

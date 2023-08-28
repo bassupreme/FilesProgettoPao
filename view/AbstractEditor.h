@@ -22,18 +22,18 @@ private:
     QLineEdit* boxImagePath;
     QTextEdit* boxDescription;
     MainWindow* mainWindow;
-    AbstractProduct* subject;
+    const AbstractProduct* subject;
     QPushButton* buttonApply;
 public:
     virtual ~AbstractEditor();
-    AbstractEditor(MainWindow* mainWindow, AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
+    AbstractEditor(MainWindow* mainWindow, const AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
     QSpinBox* getBoxId() const;
     QDoubleSpinBox* getBoxPrezzo() const;
     QLineEdit* getBoxNome() const;
     QLineEdit* getBoxImagePath() const;
     QTextEdit* getBoxDescription() const;
     QPushButton* getButtonApply() const;
-    AbstractProduct* getSubject() const;
+    const AbstractProduct* getSubject() const;
     MainWindow* getMainWindow() const;
     virtual AbstractProduct* update() = 0; // modifica del prodotto
     virtual AbstractProduct* create() = 0; // creazione del prodotto

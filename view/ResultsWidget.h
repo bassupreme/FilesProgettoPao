@@ -23,7 +23,7 @@ private:
 public:
     ~ResultsWidget();
     ResultsWidget(QMainWindow* mainWindow, QWidget* parent = nullptr);
-    void renderResults(const std::vector<AbstractProduct*>&);
+    void renderResults(const std::vector<const AbstractProduct*>&);
     void deleteResult(const AbstractProduct*);
     void clearResults();
 

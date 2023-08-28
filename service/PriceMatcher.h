@@ -5,10 +5,10 @@
 
 class PriceMatcher : public IMatcher {
 private:
-    const unsigned int lowerBound;
-    const unsigned int upperBound;
+    const float lowerBound;
+    const float upperBound;
 public:
-    PriceMatcher(const unsigned int lowerBound, const unsigned int upperBound);
+    PriceMatcher(const float lowerBound, const float upperBound);
     virtual bool hasMatch(const AbstractProduct&) const;
 };
 

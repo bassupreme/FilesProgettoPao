@@ -12,20 +12,16 @@ private:
     QLineEdit* boxNoleggiante;
     QLineEdit* boxNoleggiatore;
 public:
-    EditorNoleggio(MainWindow* mainWindow, AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
+    EditorNoleggio(MainWindow* mainWindow, const AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
     void injectItem(const Noleggio&);
     virtual AbstractProduct* update();
     virtual AbstractProduct* create();
 signals:
-    void signalUpdated(AbstractProduct*);
-    void signalCreated(AbstractProduct*);
+    void signalUpdated(const AbstractProduct*);
 private slots:
     void emitSignalUpdate();
-    void emitSignalCreate();
 public slots:
-    void updatedProduct(AbstractProduct*);
-    void CreatedProduct(AbstractProduct*);
-
+    void updatedProduct(const AbstractProduct*);
 };
 
 #endif // EDITORNOLEGGIO_H

@@ -29,10 +29,10 @@ std::vector<AbstractProduct*> JsonFile::ReadFrom(const IConverter& converter) {
     return aux;
 }
 
-JsonFile& JsonFile::WriteTo(const std::vector<AbstractProduct*>& prodotti, const IConverter& converter) { // covarianza sul tipo di ritorno
+JsonFile& JsonFile::WriteTo(const std::vector<const AbstractProduct*>& prodotti, const IConverter& converter) { // covarianza sul tipo di ritorno
     QJsonArray jsonItems;
 
-    for(std::vector<AbstractProduct*>::const_iterator it = prodotti.begin(); it!= prodotti.end(); it++) {
+    for(std::vector<const AbstractProduct*>::const_iterator it = prodotti.begin(); it!= prodotti.end(); it++) {
         QJsonObject jsonObject = converter.getJsonFromObject(*it);
         jsonItems.push_back(jsonObject);
     }

@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QFormLayout>
 
-EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
+EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
         // setup oggetti grafici di questo editor specifico
     editorVirtuale = new QLabel("EDITOR VIRTUALE");
 
@@ -26,7 +26,7 @@ EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, AbstractProduct *subject,
     // form->addRow("apply changes:", getButtonApply());
 
     // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
-    connect(this, SIGNAL(signalUpdated(AbstractProduct*)), this,  SLOT(updatedProduct(AbstractProduct*)));
+    connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
 
 }
 
@@ -58,11 +58,7 @@ void EditorVirtuale::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
-void EditorVirtuale::emitSignalCreate() {
-    emit signalCreated(getSubject());
-}
-
-void EditorVirtuale::updatedProduct(AbstractProduct* product) {
+void EditorVirtuale::updatedProduct(const AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorVirtuale::updatedProduct()" << std::endl;
     AbstractProduct* aux = update();
@@ -70,6 +66,10 @@ void EditorVirtuale::updatedProduct(AbstractProduct* product) {
     Buffer* buffer = getMainWindow()->getBuffer();
     buffer->remove(product->getId());
     buffer->insert(aux->getId(), aux);
+
+    Memory& memory = getMainWindow()->getMemory();
+    memory.remove(product);
+    memory.add(aux);
 
     /*
     std::vector<AbstractProduct*>& memoria = getMainWindow()->getMemory();
@@ -82,13 +82,7 @@ void EditorVirtuale::updatedProduct(AbstractProduct* product) {
     memoria.erase(cit);
     memoria.push_back(aux);
     delete product;
-
+    */
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
-    */
 }
-
-void EditorVirtuale::CreatedProduct(AbstractProduct *) {
-
-}
-

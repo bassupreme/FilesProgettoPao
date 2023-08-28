@@ -61,8 +61,8 @@ void Buffer::load(const std::vector<AbstractProduct*>& aux) {
     }
 }
 
-std::vector<AbstractProduct*> Buffer::readAll() const {
-    std::vector<AbstractProduct*> aux;
+std::vector<const AbstractProduct*> Buffer::readAll() const {
+    std::vector<const AbstractProduct*> aux;
     for(auto it = memoryBuffer.begin(); it != memoryBuffer.end(); it++) {
         aux.push_back(it->second);
     }
