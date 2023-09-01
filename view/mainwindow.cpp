@@ -1,6 +1,6 @@
 // direttive d'inclusione
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include <QStatusBar>
 #include <QScrollArea>
 #include <QSplitter> // andare a vedere la documentazione
 #include <QList> // serve per lo splitter
@@ -116,6 +116,8 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     splitter->addWidget(filterWidget);
 
     setCentralWidget(splitter);
+
+    splitter->setSizes(QList<int>() << 3000 << 1000);
 
     // SEGNALI E SLOT
     // azioni grafiche

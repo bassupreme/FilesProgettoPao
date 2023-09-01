@@ -4,9 +4,10 @@
 #include <QFormLayout>
 
 EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
-        // setup oggetti grafici di questo editor specifico
+    // setup oggetti grafici di questo editor specifico
     editorVirtuale = new QLabel("EDITOR VIRTUALE");
 
+    /*
     // set up layout verticale
     QVBoxLayout* vbox = new QVBoxLayout(this);
     vbox->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -23,6 +24,7 @@ EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, const AbstractProduct *su
     form->addRow("nome:", getBoxNome());
     form->addRow("imagePath:", getBoxImagePath());
     form->addRow("descrizione:", getBoxDescription());
+    */
     // form->addRow("apply changes:", getButtonApply());
 
     // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));

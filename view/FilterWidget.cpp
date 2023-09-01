@@ -12,9 +12,16 @@ void FilterWidget::clearCurrentFilter() {
 
 void FilterWidget::filterInitialSetup() {
     searchBar->setEnabled(false);
+    searchBar->setText("");
     lowerBox->setEnabled(false);
+    lowerBox->setValue(0.0);
+    lowerBox->setMinimum(0.0);
     upperBox->setEnabled(false);
+    upperBox->setValue(0.0);
+    upperBox->setMinimum(0.0);
     clearFilter->setEnabled(false);
+    priceEnabled->setChecked(false);
+    searchEnabled->setChecked(false);
 }
 
 FilterWidget::~FilterWidget() {
@@ -53,6 +60,9 @@ FilterWidget::FilterWidget(QWidget* parent) : QWidget(parent), currentFilter(nul
     form->addRow("clear:", clearFilter);
     form->addRow("apply:", applyFilter);
 
+    // setup iniziale del widget
+    filterInitialSetup();
+
     // connect segnali e slot
     connect(applyFilter, SIGNAL(clicked()), this, SLOT(emitSignalFilter()));
     connect(clearFilter, SIGNAL(clicked(bool)), this, SLOT(clearFilterWidget()));
@@ -73,7 +83,7 @@ void FilterWidget::emitSignalFilter() {
         SubstringMatcher* ssMatcer = new SubstringMatcher(searchBar->text().toStdString());
         currentFilter->addMatcher(ssMatcer);
     }
-    if (priceEnabled) {
+    if (priceEnabled->isChecked()) {
         PriceMatcher* pMatcher = new PriceMatcher(lowerBox->value(), upperBox->value());
         currentFilter->addMatcher(pMatcher);
     }

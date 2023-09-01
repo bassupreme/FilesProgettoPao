@@ -8,6 +8,7 @@
 #include <QDoubleSpinBox>
 #include <QPushButton>
 #include <QTextEdit>
+#include <QFormLayout>
 #include <model/AbstractProduct.h>
 
 // inclusioni di test
@@ -15,7 +16,9 @@
 
 
 class AbstractEditor : public QWidget {
+    Q_OBJECT
 private:
+    QFormLayout* container;
     QSpinBox* boxId;
     QDoubleSpinBox* boxPrezzo;
     QLineEdit* boxNome;
@@ -27,6 +30,7 @@ private:
 public:
     virtual ~AbstractEditor();
     AbstractEditor(MainWindow* mainWindow, const AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
+    QFormLayout* getContainer() const;
     QSpinBox* getBoxId() const;
     QDoubleSpinBox* getBoxPrezzo() const;
     QLineEdit* getBoxNome() const;
@@ -37,6 +41,8 @@ public:
     MainWindow* getMainWindow() const;
     virtual AbstractProduct* update() = 0; // modifica del prodotto
     virtual AbstractProduct* create() = 0; // creazione del prodotto
+private slots:
+    void selectImage();
 };
 
 #endif // ABSTRACTEDITOR_H

@@ -9,6 +9,7 @@ EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* su
     boxNoleggiante = new QLineEdit();
     boxNoleggiatore = new QLineEdit();
 
+    /*
     // set up layout verticale
     QVBoxLayout* vbox = new QVBoxLayout(this);
     vbox->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -24,9 +25,10 @@ EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* su
     form->addRow("nome:", getBoxNome());
     form->addRow("imagePath:", getBoxImagePath());
     form->addRow("descrizione:", getBoxDescription());
-    form->addRow("usato", checkBoxUsato);
-    form->addRow("noleggiante", boxNoleggiante);
-    form->addRow("noleggiatore", boxNoleggiatore);
+    */
+    getContainer()->addRow("usato", checkBoxUsato);
+    getContainer()->addRow("noleggiante", boxNoleggiante);
+    getContainer()->addRow("noleggiatore", boxNoleggiatore);
     // form->addRow("apply changes:", getButtonApply());
 
     // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));

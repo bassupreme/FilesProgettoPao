@@ -18,7 +18,12 @@ ListItem::ListItem(const AbstractProduct* product, QWidget* parent) : QWidget(pa
     layout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     // setup immagine
-    QPixmap image_object(":/assets/images/placeholder.svg");
+    QPixmap image_object;
+    if (product->getImagePath() != "") {
+        image_object.load(QString::fromStdString(product->getImagePath()));
+    } else {
+        image_object.load(":/assets/images/placeholder.svg");
+    }
     QLabel* image = new QLabel();
     image->setPixmap(image_object.scaled(96, 96, Qt::AspectRatioMode::KeepAspectRatio));
 
