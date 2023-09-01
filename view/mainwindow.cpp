@@ -182,7 +182,6 @@ void MainWindow::createDataset() {
     search(nullptr);
     createItem->setEnabled(true);
     showStatus("New dataset created.", 3000);
-
 }
 
 void MainWindow::openDataset() {

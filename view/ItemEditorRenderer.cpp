@@ -15,6 +15,8 @@ void ItemEditorRenderer::visit(const Virtuale& prodotto) {
     ItemInjector* injector = new ItemInjector(editor);
     prodotto.accept(*injector);
     renderedEditor = editor;
+
+    delete injector;
 }
 
 void ItemEditorRenderer::visit(const Fisico& prodotto) {
@@ -22,6 +24,8 @@ void ItemEditorRenderer::visit(const Fisico& prodotto) {
     ItemInjector* injector = new ItemInjector(editor);
     prodotto.accept(*injector);
     renderedEditor = editor;
+
+    delete injector;
 }
 
 void ItemEditorRenderer::visit(const Noleggio& prodotto) {
@@ -29,6 +33,8 @@ void ItemEditorRenderer::visit(const Noleggio& prodotto) {
     ItemInjector* injector = new ItemInjector(editor);
     prodotto.accept(*injector);
     renderedEditor = editor;
+
+    delete injector;
 }
 
 QWidget *ItemEditorRenderer::getRenderedEditor() const {

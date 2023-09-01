@@ -34,10 +34,10 @@ public:
 
 private:
     Node* head; // basta questo per la lista singolarmente linkata.
-
+    Node* last;
 public:
 
-    Container(): head(0) {
+    Container(): head(0), last(0) {
     }
 
     ~Container() {
@@ -60,6 +60,18 @@ public:
 
     Container& add(T data) {
         head = new Node(data, head);
+        return *this;
+    }
+
+    Container& add_back(T data) {
+        if (head == nullptr) {
+            head = new Node(data, head);
+            last = head;
+        } else {
+            Node* aux = last;
+            last = new Node(data, nullptr);
+            aux->setNext(last);
+        }
         return *this;
     }
 
