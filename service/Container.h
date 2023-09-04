@@ -5,6 +5,7 @@ template <typename T>
 class Container {
 public:
     class Node {
+        friend class Container;
     private:
         T data;
         Node* next;
@@ -12,7 +13,6 @@ public:
     public:
         Node(T data, Node* next): data(data), next(next) {
         }
-
         T getData() const {
             return data;
         }
@@ -48,7 +48,7 @@ public:
         unsigned int size = 0;
         Node* n = head;
         while (n != 0) {
-            n = n->getNext();
+            n = n->next;
             size++;
         }
         return size;
@@ -70,7 +70,7 @@ public:
         } else {
             Node* aux = last;
             last = new Node(data, nullptr);
-            aux->setNext(last);
+            aux->next = last;
         }
         return *this;
     }
@@ -79,25 +79,29 @@ public:
         Node* previous = 0;
         Node* current = head;
         while (current != 0) {
-            if (current->getData() == data) {
-                if (previous != 0) {
-                    previous->setNext(current->getNext());
-                }
-                else {
-                    head = current->getNext();
+            if (current->data == data) {
+                if (previous == 0 && current->next == nullptr) { // eliminazione dell'unico nodo nella lista.
+                    head = last = nullptr;
+                } else if (previous == 0) { // eliminazione primo nodo
+                    head = current->next;
+                } else if (current->next == nullptr) { // eliminazione dell'ultimo nodo
+                    last = previous;
+                    previous->next = nullptr;
+                } else {
+                    previous->next = current->next;
                 }
                 delete current;
                 return *this;
             }
             previous = current;
-            current = current->getNext();
+            current = current->next;
         }
         return *this;
     }
 
     Container& clear() {
         while (head != 0) {
-            Node* next = head->getNext();
+            Node* next = head->next;
             delete head;
             head = next;
         }

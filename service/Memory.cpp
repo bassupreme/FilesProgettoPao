@@ -2,7 +2,7 @@
 
 
 Memory& Memory::add(const AbstractProduct* product) {
-    container.add(product);
+    container.add_back(product);
     return *this;
 }
 
