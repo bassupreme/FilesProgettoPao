@@ -1,11 +1,11 @@
 #ifndef EDITORNOLEGGIO_H
 #define EDITORNOLEGGIO_H
 
-#include "AbstractEditor.h"
+#include "EditorFisico.h"
 #include <QLabel>
 #include <QCheckBox>
 
-class EditorNoleggio : public AbstractEditor {
+class EditorNoleggio : public EditorFisico {
     Q_OBJECT
 private:
     QCheckBox* checkBoxUsato;
@@ -19,9 +19,9 @@ public:
 signals:
     void signalUpdated(const AbstractProduct*);
 private slots:
-    void emitSignalUpdate();
+    virtual void emitSignalUpdate();
 public slots:
-    void updatedProduct(const AbstractProduct*);
+    virtual void updatedProduct(const AbstractProduct*);
 };
 
 #endif // EDITORNOLEGGIO_H

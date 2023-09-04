@@ -302,6 +302,7 @@ void MainWindow::deleteProduct(const AbstractProduct* product) {
     std::cout << "SLOT MAIN WINDOW" << std::endl;
     std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
     resultsWidget->deleteResult(product);
+    memory.remove(product);
     buffer->remove(product->getId());
 
     /*

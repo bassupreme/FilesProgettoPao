@@ -18,6 +18,7 @@ AbstractEditor::AbstractEditor(MainWindow *mainWindow, const AbstractProduct *su
     boxNome = new QLineEdit();
     QHBoxLayout* imageRow = new QHBoxLayout();
     boxImagePath = new QLineEdit();
+    boxImagePath->setEnabled(false);
     QPushButton* btnSelectImage = new QPushButton("select");
     imageRow->addWidget(boxImagePath);
     imageRow->addWidget(btnSelectImage);
@@ -99,5 +100,6 @@ void AbstractEditor::selectImage() {
         return;
     }
     boxImagePath->setText(path);
+
 }
 

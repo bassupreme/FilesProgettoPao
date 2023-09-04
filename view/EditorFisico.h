@@ -15,11 +15,12 @@ public:
     EditorFisico(MainWindow* mainWindow, const AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
     virtual AbstractProduct* update(); // modifica del prodotto
     virtual AbstractProduct* create(); // creazione del prodotto
+    QCheckBox *getCheckBoxUsato() const;
     void injectItem(const Fisico&);
 private slots:
     void emitSignalUpdate();
 public slots:
-    void updatedProduct(const AbstractProduct*);
+    virtual void updatedProduct(const AbstractProduct*);
 signals:
     void signalUpdated(const AbstractProduct*);
 };

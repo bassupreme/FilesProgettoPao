@@ -53,6 +53,10 @@ AbstractProduct* EditorFisico::create() {
 
 }
 
+QCheckBox *EditorFisico::getCheckBoxUsato() const {
+    return checkBoxUsato;
+}
+
 void EditorFisico::injectItem(const Fisico& product) {
     // settare i campi delle box
     getBoxId()->setValue(product.getId());

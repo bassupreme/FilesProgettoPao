@@ -40,8 +40,8 @@ void ItemRenderer::visit(const Noleggio& product) {
     renderedLayout->addWidget(nome);
     renderedLayout->addWidget(usato);
     renderedLayout->addWidget(prezzo);
-    renderedLayout->addWidget(labelNoleggiatore);
     renderedLayout->addWidget(labelNoleggiante);
+    renderedLayout->addWidget(labelNoleggiatore);
 
     // settare allineamento all'interno del layout
     renderedLayout->setAlignment(nome, Qt::AlignLeft | Qt::AlignTop);

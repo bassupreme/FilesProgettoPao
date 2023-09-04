@@ -3,9 +3,9 @@
 #include <QVBoxLayout>
 #include <QFormLayout>
 
-EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
+EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* subject, QWidget *parent) : EditorFisico(mainWindow, subject, parent) {
     // setup oggetti grafici di questo editor specifico
-    checkBoxUsato = new QCheckBox();
+    // checkBoxUsato = new QCheckBox();
     boxNoleggiante = new QLineEdit();
     boxNoleggiatore = new QLineEdit();
 
@@ -26,7 +26,7 @@ EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* su
     form->addRow("imagePath:", getBoxImagePath());
     form->addRow("descrizione:", getBoxDescription());
     */
-    getContainer()->addRow("usato", checkBoxUsato);
+    // getContainer()->addRow("usato", checkBoxUsato);
     getContainer()->addRow("noleggiante", boxNoleggiante);
     getContainer()->addRow("noleggiatore", boxNoleggiatore);
     // form->addRow("apply changes:", getButtonApply());
@@ -43,7 +43,7 @@ void EditorNoleggio::injectItem(const Noleggio& product) {
     getBoxNome()->setText(QString::fromStdString(product.getNome()));
     getBoxImagePath()->setText(QString::fromStdString(product.getImagePath()));
     getBoxDescription()->setText(QString::fromStdString(product.getDescription()));
-    checkBoxUsato->setChecked(product.getUsato());
+    getCheckBoxUsato()->setChecked(product.getUsato());
     boxNoleggiatore->setText(QString::fromStdString(product.getNoleggiatore()));
     boxNoleggiante->setText(QString::fromStdString(product.getNoleggiante()));
 }
@@ -59,7 +59,7 @@ AbstractProduct* EditorNoleggio::create() {
               getBoxNome()->text().toStdString(),
               getBoxImagePath()->text().toStdString(),
               getBoxDescription()->toPlainText().toStdString(),
-              checkBoxUsato->isChecked(),
+              getCheckBoxUsato()->isChecked(),
               boxNoleggiatore->text().toStdString(),
                         boxNoleggiante->text().toStdString());
 
