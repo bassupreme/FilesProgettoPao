@@ -1,22 +1,21 @@
 // direttive d'inclusione
-#include "mainwindow.h"
 #include <QStatusBar>
 #include <QScrollArea>
-#include <QSplitter> // andare a vedere la documentazione
-#include <QList> // serve per lo splitter
+#include <QSplitter>
+#include <QList>
 #include <QAction>
 #include <QPixmap>
 #include <QIcon>
 #include <QFileDialog>
 #include <iostream>
 
-// inclusioni di test
+// inclusioni utente
+#include "mainwindow.h"
 #include "model/Fisico.h"
 #include "model/Virtuale.h"
 #include "model/Noleggio.h"
 #include "filePersistence/JsonReader.h"
 #include "filePersistence/JsonConverter.h"
-#include "TestProductEditor.h"
 #include "EditorFisico.h"
 #include "EditorVirtuale.h"
 #include "EditorNoleggio.h"
@@ -25,23 +24,8 @@
 
 
 MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), buffer(nullptr), memory(memory), jsonFile(nullptr) {
-    // DATI DI TEST FAKE
-    /*
-    AbstractProduct* p1 =  new Noleggio(1, 9.5, "pc", "path", "descrizione", true, "negizio", "io");
-    AbstractProduct* p2 =   new Fisico(2, 2.0, "chitarra", "path", "descrizione");
-    AbstractProduct* p3 =   new Noleggio(3, 2.0, "casse", "path", "descrizione", "negozio");
-    AbstractProduct* p4 =   new Fisico(4, 2.0, "basso", "path", "descrizione");
-    AbstractProduct* p5 =   new Virtuale(5, 9.0, "cd", "path", "descrizione");
 
-    aux.push_back(p1);
-    aux.push_back(p2);
-    aux.push_back(p3);
-    aux.push_back(p4);
-    aux.push_back(p5);
-    */
-
-
-    // Actions
+    // CREAZIONE ACTIONS DELLA TOOLBAR
     QAction* create = new QAction(
                 QIcon(QPixmap((":/assets/icons/new.svg"))),
                 "New"
@@ -77,7 +61,6 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     createItem ->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     createItem ->setEnabled(false);
 
-
     // SETUP DELLA TOOLBAR
     toolbar = addToolBar("File Toolbar");
     toolbar->addAction(create);
@@ -88,8 +71,6 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     toolbar->addAction(createItem);
     toolbar->addSeparator();
     toolbar->addAction(close);
-
-
 
     // SPLITTER
     QSplitter* splitter = new QSplitter(this);
@@ -103,24 +84,24 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     resultsWidget = new ResultsWidget(this);
     customScrollArea->setWidget(resultsWidget);
 
-
     // stacked widget
     stackedWidget = new QStackedWidget(this);
-    splitter->addWidget(stackedWidget);
-
     stackedWidget->addWidget(customScrollArea);
 
 
     // FILTER WIDGET
     filterWidget = new FilterWidget();
+
+
+    // AGGIUNTA ELEMENTI ALLO SPLITTER E SETUP
+    splitter->addWidget(stackedWidget);
     splitter->addWidget(filterWidget);
-
-    setCentralWidget(splitter);
-
     splitter->setSizes(QList<int>() << 3000 << 1000);
 
-    // SEGNALI E SLOT
-    // azioni grafiche
+    // WIDGET CENTRALE DELLA MAINWINDOW
+    setCentralWidget(splitter);
+
+    // CONNESSIONI SEGNALI E SLOT
     connect(togge_toolbar, &QAction::triggered, this, &MainWindow::toggleToolbar);
     connect(create, &QAction::triggered, this, &MainWindow::createDataset);
     connect(open, &QAction::triggered, this, &MainWindow::openDataset);
@@ -128,7 +109,6 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     connect(save, &QAction::triggered, this, &MainWindow::writeDataset);
     connect(filterWidget, SIGNAL(signalFilter(Filter*)), this, SLOT(search(Filter*)));
     connect(filterWidget, SIGNAL(signalCleared(Filter*)), this, SLOT(search(Filter*)));
-    // search(nullptr);
 }
 
 MainWindow::~MainWindow() {
@@ -151,12 +131,6 @@ Buffer *MainWindow::getBuffer() const {
 Memory& MainWindow::getMemory() const {
     return memory;
 }
-
-/*
-std::vector<AbstractProduct *> &MainWindow::getMemory() {
-    return aux;
-}
-*/
 
 void MainWindow::createDataset() {
     QString path = QFileDialog::getSaveFileName(
@@ -225,7 +199,7 @@ void MainWindow::openDataset() {
     // chiamata del metodo per caricare i risultati
     search(nullptr);
 
-    // eliminazione elementi che non servono
+    // deallocazione di memoria.
     delete reader;
     delete converter;
 }
@@ -246,7 +220,7 @@ void MainWindow::writeDataset() {
     // mostrare status nella statusbar
     showStatus("dataset salvato", 5000);
 
-    // potrei mettere all'interno del distruttore di JsonFile la deallocazione del converter e del reader.
+    // deallocazione di memoria
     delete reader;
     delete converter;
 }
@@ -266,13 +240,14 @@ void MainWindow::clearStack() {
 
 void MainWindow::toggleToolbar() {
     toolbar->setVisible(!toolbar->isVisible());
-    showStatus("Toolbar toggled.");
+    showStatus("Toolbar toggled.", 3000);
 }
 
 void MainWindow::createProduct() {
     // DEBUG
     std::cout << "MainWindow::createProduct" << std::endl;
 
+    // PULIZIA DEI WIDGET SOPRA LO STACK
     clearStack();
 
     // CREAZIONE WIDGET CREATE
@@ -304,18 +279,6 @@ void MainWindow::deleteProduct(const AbstractProduct* product) {
     resultsWidget->deleteResult(product);
     memory.remove(product);
     buffer->remove(product->getId());
-
-    /*
-    std::vector<AbstractProduct*>::const_iterator cit = aux.begin();
-    while((*cit) != product) {
-        cit++;
-    }
-
-    std::cout << "MainWindow::deleteProduct() : eliminare prodotto con id: " << (*cit)->getId() << std::endl;
-    delete product;
-    aux.erase(cit);
-    std::cout << "buffer size: " << aux.size() << std::endl;
-    */
 }
 
 void MainWindow::updateProduct(const AbstractProduct* product) {
@@ -323,14 +286,15 @@ void MainWindow::updateProduct(const AbstractProduct* product) {
     std::cout << "MainWindow::updateProduct" << std::endl;
     std::cout << "aggiornare prodotto: " << std::to_string(product->getId()) << std::endl;
 
+    // PULIZIA DEI WIDGET SOPRA LO STACK
     clearStack();
 
     // CREAZIONE WIDGET EDIT
     QWidget* container = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout();
-    ItemEditorRenderer* renderer = new ItemEditorRenderer(this);
-    product->accept(*renderer);
-    QWidget* editor = renderer->getRenderedEditor();
+    ItemEditorRenderer renderer(this);
+    product->accept(renderer);
+    QWidget* editor = renderer.getRenderedEditor();
     layout->addWidget(editor);
     layout->setAlignment(editor, Qt::AlignHCenter | Qt::AlignTop);
     QPushButton* applyChanges = new QPushButton("APPLY CHANGES");
@@ -349,20 +313,16 @@ void MainWindow::updateProduct(const AbstractProduct* product) {
     stackedWidget->setCurrentIndex(1);
     showStatus("Editing Item", 0);
 
-    // eliminazione oggetti non utili
-    delete renderer;
 }
 
 void MainWindow::search(Filter* filter) {
-
     resultsWidget->clearResults();
     if (filter == nullptr) {
         resultsWidget->renderResults(buffer->readAll());
         stackedWidget->setCurrentIndex(0);
         clearStack();
     } else {
-        // ricerca memory.
-        std::cout << "RICERCA CON FILTRO" << std::endl;
+        std::cout << "RICERCA CON FILTRO" << std::endl; // DEBUG
         const std::vector<const AbstractProduct*> results = memory.search(filter);
         resultsWidget->renderResults(results);
     }

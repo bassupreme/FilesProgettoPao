@@ -9,37 +9,16 @@
 EditorFisico::EditorFisico(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
     // setup oggetti grafici di questo editor specifico
     checkBoxUsato = new QCheckBox("usato");
-
-
-    /*
-    // set up layout verticale
-    QVBoxLayout* vbox = new QVBoxLayout(this);
-    vbox->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-
-    // setup form layout
-    QFormLayout* form = new QFormLayout();
-    form->setLabelAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    vbox->addLayout(form);
-
-    form->addRow("id:", getBoxId());
-    form->addRow("prezzo:", getBoxPrezzo());
-    form->addRow("nome:", getBoxNome());
-    form->addRow("imagePath:", getBoxImagePath());
-    form->addRow("descrizione:", getBoxDescription());
-    */
     getContainer()->addRow("usato", checkBoxUsato);
-    // form->addRow("apply changes:", getButtonApply());
 
     // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
     connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
-
 }
 
 AbstractProduct* EditorFisico::update() {
     // prendere il subject e modificarlo a seconda dei parametri appena immessi
     std::cout << "EditorFisico::update()" << std::endl;
     return create();
-
 }
 
 AbstractProduct* EditorFisico::create() {
@@ -50,7 +29,6 @@ AbstractProduct* EditorFisico::create() {
                getBoxImagePath()->text().toStdString(),
                getBoxDescription()->toPlainText().toStdString(),
                checkBoxUsato->isChecked());
-
 }
 
 QCheckBox *EditorFisico::getCheckBoxUsato() const {
@@ -85,19 +63,6 @@ void EditorFisico::updatedProduct(const AbstractProduct* product) {
     Memory& memory = getMainWindow()->getMemory();
     memory.remove(product);
     memory.add(aux);
-
-    /*
-    std::vector<AbstractProduct*>& memoria = getMainWindow()->getMemory();
-    std::vector<AbstractProduct*>::const_iterator cit = memoria.begin();
-
-    while ((*cit) != product) {
-        cit++;
-    }
-
-    memoria.erase(cit);
-    memoria.push_back(aux);
-    delete product;
-    */
 
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);

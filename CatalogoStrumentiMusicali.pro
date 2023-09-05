@@ -20,7 +20,6 @@ SOURCES += \
     model/Noleggio.cpp \
     model/Virtuale.cpp \
     service/Buffer.cpp \
-    service/Container.cpp \
     service/Filter.cpp \
     service/Memory.cpp \
     service/PriceMatcher.cpp \
@@ -36,7 +35,6 @@ SOURCES += \
     view/ItemRenderer.cpp \
     view/ListItem.cpp \
     view/ResultsWidget.cpp \
-    view/TestProductEditor.cpp \
     view/mainwindow.cpp
 
 HEADERS += \
@@ -71,7 +69,6 @@ HEADERS += \
     view/ItemRenderer.h \
     view/ListItem.h \
     view/ResultsWidget.h \
-    view/TestProductEditor.h \
     view/mainwindow.h
 
 FORMS +=

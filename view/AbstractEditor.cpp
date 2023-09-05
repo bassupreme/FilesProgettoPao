@@ -40,14 +40,6 @@ AbstractEditor::AbstractEditor(MainWindow *mainWindow, const AbstractProduct *su
     container->addRow("imagePath:", imageRow);
     container->addRow("descrizione:", boxDescription);
 
-    /*
-    if (subject != nullptr) { // questo nel caso in cui questo editor venga usato durante la modifica di un prodotto.
-        boxId->setValue(subject->getId());
-        boxPrezzo->setValue(subject->getPrezzo());
-        boxNome->setText(QString::fromStdString(subject->getNome()));
-        boxImagePath->setText(QString::fromStdString(subject->getImagePath()));
-    }
-    */
     connect(btnSelectImage, SIGNAL(clicked()), this, SLOT(selectImage()));
 }
 

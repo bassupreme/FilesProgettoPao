@@ -13,7 +13,7 @@ ItemInjector::ItemInjector(EditorVirtuale *editorVirtuale) : editorVirtuale(edit
 
 }
 
-ItemInjector::ItemInjector(EditorNoleggio *editorNoleggio) : editorNoleggio(editorNoleggio){
+ItemInjector::ItemInjector(EditorNoleggio *editorNoleggio) : editorNoleggio(editorNoleggio) {
 
 }
 

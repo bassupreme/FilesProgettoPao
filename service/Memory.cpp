@@ -2,9 +2,7 @@
 
 Memory::Memory() { }
 
-Memory::~Memory() {
-    container.clear();
-}
+Memory::~Memory() {}
 
 Memory& Memory::add(const AbstractProduct* product) {
     container.add_back(product);
