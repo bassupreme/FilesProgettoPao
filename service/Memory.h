@@ -11,6 +11,8 @@ class Memory {
 private:
     Container<const AbstractProduct*> container;
 public:
+    Memory();
+    ~Memory();
     Memory& add(const AbstractProduct*);
     Memory& remove(const AbstractProduct*);
     std::vector<const AbstractProduct*> search(Filter*); // all'interno di search ci va il filtro. come parametro (ancora da implementare come classe

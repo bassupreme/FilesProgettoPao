@@ -1,5 +1,10 @@
 #include "Memory.h"
 
+Memory::Memory() { }
+
+Memory::~Memory() {
+    container.clear();
+}
 
 Memory& Memory::add(const AbstractProduct* product) {
     container.add_back(product);
@@ -13,20 +18,20 @@ Memory &Memory::remove(const AbstractProduct* product) {
 
 std::vector<const AbstractProduct *> Memory::search(Filter* filtro) {
     std::vector<const AbstractProduct*> aux;
-    Container<const AbstractProduct*>::Node* head = container.getHead();
+    Container<const AbstractProduct*>::const_iterator cit = container.begin();
 
-    while(head != nullptr) {
-        const AbstractProduct* t = head->getData();
+    while(cit != container.end()) {
+        const AbstractProduct* t = *cit;
         if (filtro->matchesAll(*t)) {
             aux.push_back(t);
         }
-        head = head->getNext();
+        cit++;
     }
     return aux;
 }
 
 bool Memory::empty() const {
-    return (container.getHead() == nullptr);
+    return container.empty();
 }
 
 

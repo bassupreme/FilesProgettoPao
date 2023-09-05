@@ -1,46 +1,68 @@
 #include "Container.h"
 
-
-template<typename T>
+// nodo
+template<class T>
 Container<T>::Node::Node(T data, Node *next) : data(data), next(next) {}
 
-template<typename T>
-T Container<T>::Node::getData() const {
-    return data;
-}
+// CONST ITERATOR
+template<class T>
+Container<T>::const_iterator::const_iterator(const Node* p, bool pte) : ptr(p), pastTheEnd(pte) {}
 
-template<typename T>
-void Container<T>::Node::setData(T data) {
-    data = data;
-}
+template<class T>
+Container<T>::const_iterator::const_iterator() : ptr(nullptr), pastTheEnd(false) {}
 
-/*
-template<typename T>
-Container::Node* Container<T>::Node::getNext() const {
-    return next;
-}
-
-template<typename T>
-Container::Node& Container<T>::Node::setNext(Node *next) {
-    next = next;
+// prefisso
+template<class T>
+typename Container<T>::const_iterator& Container<T>::const_iterator::operator++() {
+    if (ptr && !pastTheEnd) {
+        if (ptr->next == nullptr) { ptr = ptr + 1; pastTheEnd = true; }
+        else ptr = ptr->next;
+    }
     return *this;
 }
-*/
 
-template<typename T>
+// postfisso
+template<class T>
+typename Container<T>::const_iterator Container<T>::const_iterator::operator++(int) {
+    const_iterator aux(*this);
+    if (ptr && !pastTheEnd) {
+        if (ptr->next == nullptr) { ptr = ptr + 1; pastTheEnd = true; }
+        else ptr = ptr->next;
+    }
+    return aux;
+}
+
+template<class T>
+const T& Container<T>::const_iterator::operator*() const {
+    return ptr->data;
+}
+
+template<class T>
+bool Container<T>::const_iterator::operator==(const const_iterator& cit) const {
+    return ptr == cit.ptr;
+}
+
+template<class T>
+bool Container<T>::const_iterator::operator!=(const const_iterator& cit) const {
+    return ptr == cit.ptr;
+}
+
+// container
+
+template<class T>
 Container<T>::Container() : head(nullptr), last(nullptr) { }
 
-template<typename T>
+template<class T>
 Container<T>::~Container() {
     clear();
 }
 
-template<typename T>
+template<class T>
 void Container<T>::add(T data) {
     head = new Node(data, head);
 }
 
-template<typename T>
+template<class T>
 void Container<T>::add_back(T data) {
     if (head == nullptr) {
         head = new Node(data, head);
@@ -52,7 +74,7 @@ void Container<T>::add_back(T data) {
     }
 }
 
-template<typename T>
+template <class T>
 void Container<T>::remove(T data) {
     Node* previous = 0;
     Node* current = head;
@@ -75,11 +97,33 @@ void Container<T>::remove(T data) {
     }
 }
 
-template<typename T>
+template <class T>
 void Container<T>::clear() {
     while (head != 0) {
         Node* next = head->next;
         delete head;
         head = next;
     }
+}
+
+template<class T>
+bool Container<T>::empty() const {
+    return head == last == nullptr;
+}
+
+template<class T>
+typename Container<T>::const_iterator Container<T>::begin() const {
+    if (head != nullptr) return const_iterator(head, false);
+    return const_iterator();
+}
+
+template<class T>
+typename Container<T>::const_iterator Container<T>::end() const {
+    if (head == nullptr) return const_iterator();
+    return const_iterator(last + 1, true);
+}
+
+template<class T>
+const T& Container<T>::operator[](const const_iterator& cit) const {
+    return *cit;
 }
