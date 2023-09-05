@@ -20,6 +20,7 @@ SOURCES += \
     model/Noleggio.cpp \
     model/Virtuale.cpp \
     service/Buffer.cpp \
+    service/Container.cpp \
     service/Filter.cpp \
     service/Memory.cpp \
     service/PriceMatcher.cpp \
