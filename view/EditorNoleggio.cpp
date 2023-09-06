@@ -49,6 +49,7 @@ void EditorNoleggio::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
+/*
 void EditorNoleggio::updatedProduct(const AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorNoleggio::updatedProduct()" << std::endl;
@@ -65,3 +66,4 @@ void EditorNoleggio::updatedProduct(const AbstractProduct* product) {
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
 }
+*/

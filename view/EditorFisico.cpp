@@ -49,6 +49,7 @@ void EditorFisico::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
+/*
 void EditorFisico::updatedProduct(const AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorFisico::updatedProduct()" << std::endl;
@@ -68,3 +69,5 @@ void EditorFisico::updatedProduct(const AbstractProduct* product) {
     getMainWindow()->search(nullptr);
     getMainWindow()->showStatus("updated product", 5000);
 }
+
+*/

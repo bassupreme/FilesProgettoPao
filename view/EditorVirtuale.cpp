@@ -37,6 +37,7 @@ void EditorVirtuale::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
+/*
 void EditorVirtuale::updatedProduct(const AbstractProduct* product) {
     // richiamare la funzione update
     std::cout << "EditorVirtuale::updatedProduct()" << std::endl;
@@ -53,3 +54,4 @@ void EditorVirtuale::updatedProduct(const AbstractProduct* product) {
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
 }
+*/

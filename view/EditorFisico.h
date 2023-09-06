@@ -21,7 +21,7 @@ signals:
     void signalUpdated(const AbstractProduct*);
 private slots:
     void emitSignalUpdate();
-    virtual void updatedProduct(const AbstractProduct*);
+    // virtual void updatedProduct(const AbstractProduct*);
 
 };
 

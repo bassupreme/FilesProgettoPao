@@ -43,6 +43,7 @@ public:
     virtual AbstractProduct* create() = 0; // creazione del prodotto
 private slots:
     void selectImage();
+protected slots:
+    void updatedProduct(const AbstractProduct*);
 };
-
 #endif // ABSTRACTEDITOR_H
