@@ -24,6 +24,10 @@ bool Buffer::exists(const unsigned int key) const {
     return (it != memoryBuffer.end());
 }
 
+unsigned int Buffer::getSize() const {
+    return memoryBuffer.size();
+}
+
 
 Buffer& Buffer::insert(const unsigned int key, AbstractProduct* product) {
     memoryBuffer[key] = product;

@@ -1,10 +1,14 @@
+// inclusioni di Qt
+#include <QComboBox>
+#include <QVBoxLayout>
+#include <QMessageBox>
+
+// inclusioni file dev
 #include "ItemCreator.h"
 #include "AbstractEditor.h"
 #include "EditorFisico.h"
 #include "EditorVirtuale.h"
 #include "EditorNoleggio.h"
-#include <QComboBox>
-#include <QVBoxLayout>
 
 ItemCreator::ItemCreator(MainWindow* mainWindow, QWidget* parent) : QWidget(parent), mainWindow(mainWindow) {
 
@@ -53,11 +57,13 @@ void ItemCreator::create() {
         buffer->insert(createdProduct->getId(), createdProduct);
         mainWindow->getMemory().add(createdProduct);
         mainWindow->setHasUnsavedChanges(true);
+        mainWindow->showStatus("Product created", 5000);
     } else {
         // DEBUG
         std::cout << "ItemCreator::create()" << std::endl;
         std::cout << "IMPOSSIBILE INSERIRE IL PRODOTTO" << std::endl;
         std::cout << "esiste gia' un prodotto con quell'id." << std::endl;
+        QMessageBox::about(this, "errore", "esiste gia' un prodotto con quell'id.");
         mainWindow->setHasUnsavedChanges(false);
     }
 

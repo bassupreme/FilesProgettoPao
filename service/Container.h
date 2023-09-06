@@ -44,7 +44,7 @@ public:
     void remove(T data);
     void clear();
     bool empty() const;
-    // const unsigned int getSize();
+    unsigned int getSize() const;
 
     const_iterator begin() const;
     const_iterator end() const;
@@ -141,7 +141,9 @@ void Container<T>::remove(T data) {
                 previous->next = current->next;
             }
             delete current;
+            return;
         }
+        // informazioni per continuare il ciclo
         previous = current;
         current = current->next;
     }
@@ -161,9 +163,9 @@ bool Container<T>::empty() const {
     return head == nullptr;
 }
 
-/* utile in fase di debug. potrebbe essere utile ad altri widget tuttavia.
+// utile in fase di debug. potrebbe essere utile ad altri widget tuttavia.
 template<class T>
-const unsigned int Container<T>::getSize() {
+unsigned int Container<T>::getSize() const {
     Container<T>::Node* aux = head;
 
     unsigned int size = 0;
@@ -174,7 +176,7 @@ const unsigned int Container<T>::getSize() {
 
     return size;
 }
-*/
+
 template<class T>
 typename Container<T>::const_iterator Container<T>::begin() const {
     if (head != nullptr) {

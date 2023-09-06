@@ -19,9 +19,10 @@ void FilterWidget::filterInitialSetup() {
     upperBox->setEnabled(false);
     upperBox->setValue(0.0);
     upperBox->setMinimum(0.0);
-    clearFilter->setEnabled(false);
     priceEnabled->setChecked(false);
     searchEnabled->setChecked(false);
+    clearFilter->setEnabled(false);
+    applyFilter->setEnabled(false);
 }
 
 FilterWidget::~FilterWidget() {
@@ -68,6 +69,10 @@ FilterWidget::FilterWidget(QWidget* parent) : QWidget(parent), currentFilter(nul
     connect(clearFilter, SIGNAL(clicked(bool)), this, SLOT(clearFilterWidget()));
     connect(searchEnabled, SIGNAL(toggled(bool)), this, SLOT(enableSearchInput()));
     connect(priceEnabled, SIGNAL(toggled(bool)), this, SLOT(enablePriceInput()));
+}
+
+QPushButton *FilterWidget::getButtonApply() const {
+    return applyFilter;
 }
 
 void FilterWidget::emitSignalFilter() {

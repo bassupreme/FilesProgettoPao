@@ -13,6 +13,7 @@ public:
     Buffer();
     ~Buffer();
     bool exists(const unsigned int) const;
+    unsigned int getSize() const;
     Buffer& insert(const unsigned int, AbstractProduct*);
     Buffer& remove(const unsigned int);
     const AbstractProduct* get(const unsigned int) const;

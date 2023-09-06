@@ -195,7 +195,7 @@ void MainWindow::openDataset() {
 
     // attivare la creazione di un elemento.
     createItem->setEnabled(true);
-
+    filterWidget->getButtonApply()->setEnabled(true);
     // chiamata del metodo per caricare i risultati
     search(nullptr);
 
@@ -279,6 +279,10 @@ void MainWindow::deleteProduct(const AbstractProduct* product) {
     resultsWidget->deleteResult(product);
     memory.remove(product);
     buffer->remove(product->getId());
+
+    // DEBUG
+    std::cout << "size buffer: " << buffer->getSize() << std::endl;
+    setHasUnsavedChanges(true);
 }
 
 void MainWindow::updateProduct(const AbstractProduct* product) {

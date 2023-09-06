@@ -35,6 +35,8 @@ public:
     void setHasControl(const bool);
     Filter* getCurrentFilter() const;
     */
+
+    QPushButton* getButtonApply() const;
 private slots:
     void emitSignalFilter();
     void enableSearchInput();

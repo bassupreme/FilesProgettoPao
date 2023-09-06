@@ -38,12 +38,12 @@ private:
     QStackedWidget* stackedWidget;
     QToolBar* toolbar;
     QAction* createItem;
-    void showStatus(const std::string& message, const unsigned int duration = 0);
     void clearStack();
 public:
     MainWindow(Memory& memory, QWidget *parent = nullptr);
     ~MainWindow();
     void clearResults();
+    void showStatus(const std::string& message, const unsigned int duration = 0);
     void setHasUnsavedChanges(const bool&);
     Buffer *getBuffer() const;
     Memory& getMemory() const;
