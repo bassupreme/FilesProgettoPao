@@ -49,25 +49,3 @@ void EditorFisico::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
 
-/*
-void EditorFisico::updatedProduct(const AbstractProduct* product) {
-    // richiamare la funzione update
-    std::cout << "EditorFisico::updatedProduct()" << std::endl;
-    // vecchio prodotto
-    AbstractProduct* aux = update();
-
-    // prodotto nuovo
-    Buffer* buffer = getMainWindow()->getBuffer();
-    buffer->remove(product->getId());
-    buffer->insert(aux->getId(), aux);
-
-    Memory& memory = getMainWindow()->getMemory();
-    memory.remove(product);
-    memory.add(aux);
-
-    getMainWindow()->clearResults();
-    getMainWindow()->search(nullptr);
-    getMainWindow()->showStatus("updated product", 5000);
-}
-
-*/

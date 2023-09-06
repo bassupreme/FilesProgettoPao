@@ -36,22 +36,3 @@ AbstractProduct* EditorVirtuale::create() {
 void EditorVirtuale::emitSignalUpdate() {
     emit signalUpdated(getSubject());
 }
-
-/*
-void EditorVirtuale::updatedProduct(const AbstractProduct* product) {
-    // richiamare la funzione update
-    std::cout << "EditorVirtuale::updatedProduct()" << std::endl;
-    AbstractProduct* aux = update();
-
-    Buffer* buffer = getMainWindow()->getBuffer();
-    buffer->remove(product->getId());
-    buffer->insert(aux->getId(), aux);
-
-    Memory& memory = getMainWindow()->getMemory();
-    memory.remove(product);
-    memory.add(aux);
-
-    getMainWindow()->clearResults();
-    getMainWindow()->search(nullptr);
-}
-*/
