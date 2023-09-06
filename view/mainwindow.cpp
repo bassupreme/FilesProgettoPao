@@ -91,6 +91,7 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
 
     // FILTER WIDGET
     filterWidget = new FilterWidget();
+    filterWidget->getButtonApply()->setEnabled(false);
 
 
     // AGGIUNTA ELEMENTI ALLO SPLITTER E SETUP

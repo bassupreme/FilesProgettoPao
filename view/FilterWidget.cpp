@@ -22,7 +22,6 @@ void FilterWidget::filterInitialSetup() {
     priceEnabled->setChecked(false);
     searchEnabled->setChecked(false);
     clearFilter->setEnabled(false);
-    applyFilter->setEnabled(false);
 }
 
 FilterWidget::~FilterWidget() {

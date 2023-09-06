@@ -20,7 +20,7 @@ void JsonVisitor::visit(const Fisico& f) {
 
 void JsonVisitor::visit(const Virtuale& f) {
     // codice per la serializzazione dell'oggetto puntato da f.
-    cout << "LOGICA per serializzazione di oggetto di tipo FISICO in JSON\n";
+    cout << "LOGICA per serializzazione di oggetto di tipo VIRUTALE in JSON\n";
     QJsonObject fisico_object;
     fisico_object.insert("type", QJsonValue::fromVariant("virtuale"));
     fisico_object.insert("id", QJsonValue::fromVariant(f.getId()));
@@ -33,7 +33,7 @@ void JsonVisitor::visit(const Virtuale& f) {
 
 void JsonVisitor::visit(const Noleggio& f) {
     // codice per la serializzazione dell'oggetto puntato da f.
-    cout << "LOGICA per serializzazione di oggetto di tipo FISICO in JSON\n";
+    cout << "LOGICA per serializzazione di oggetto di tipo NOLEGGIO in JSON\n";
     QJsonObject fisico_object;
     fisico_object.insert("type", QJsonValue::fromVariant("noleggio"));
     fisico_object.insert("id", QJsonValue::fromVariant(f.getId()));

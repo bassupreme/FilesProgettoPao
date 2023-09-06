@@ -5,7 +5,6 @@
 void Buffer::destroy(const std::map<unsigned int, AbstractProduct*>& b) {
     std::map<unsigned int, AbstractProduct*>::const_iterator it;
     for(it = b.begin(); it != b.end(); it++) {
-        std::cout << (*it).second << std::endl;
         delete it->second;
     }
 }
