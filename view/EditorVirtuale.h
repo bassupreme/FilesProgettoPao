@@ -17,7 +17,6 @@ signals:
     void signalUpdated(const AbstractProduct*);
 private slots:
     void emitSignalUpdate();
-public slots:
     void updatedProduct(const AbstractProduct*);
 };
 

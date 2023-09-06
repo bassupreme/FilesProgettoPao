@@ -66,4 +66,5 @@ void EditorFisico::updatedProduct(const AbstractProduct* product) {
 
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
+    getMainWindow()->showStatus("updated product", 5000);
 }

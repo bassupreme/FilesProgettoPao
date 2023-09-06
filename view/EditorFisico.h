@@ -17,12 +17,12 @@ public:
     virtual AbstractProduct* create(); // creazione del prodotto
     QCheckBox *getCheckBoxUsato() const;
     void injectItem(const Fisico&);
-private slots:
-    void emitSignalUpdate();
-public slots:
-    virtual void updatedProduct(const AbstractProduct*);
 signals:
     void signalUpdated(const AbstractProduct*);
+private slots:
+    void emitSignalUpdate();
+    virtual void updatedProduct(const AbstractProduct*);
+
 };
 
 #endif // EDITORFISICO_H
