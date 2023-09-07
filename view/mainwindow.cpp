@@ -41,6 +41,7 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
                 "Save"
                 );
     save->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+    /*
     QAction* save_as = new QAction(
                 QIcon(QPixmap((":/assets/icons/save_as.svg"))),
                 "Save As"
@@ -51,6 +52,7 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
                 "Close"
                 );
     close->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Q));
+    */
     QAction* togge_toolbar = new QAction(
                 "Toolbar"
                 );
@@ -66,11 +68,11 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     toolbar->addAction(create);
     toolbar->addAction(open);
     toolbar->addAction(save);
-    toolbar->addAction(save_as);
+    // toolbar->addAction(save_as);
     toolbar->addSeparator();
     toolbar->addAction(createItem);
     toolbar->addSeparator();
-    toolbar->addAction(close);
+    // toolbar->addAction(close);
 
     // SPLITTER
     QSplitter* splitter = new QSplitter(this);
