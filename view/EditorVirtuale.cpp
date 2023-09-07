@@ -20,11 +20,11 @@ void EditorVirtuale::injectItem(const Virtuale& product) {
     getBoxDescription()->setText(QString::fromStdString(product.getDescription()));
 }
 
-AbstractProduct* EditorVirtuale::update() {
+AbstractProduct* EditorVirtuale::update() const {
     return create();
 }
 
-AbstractProduct* EditorVirtuale::create() {
+AbstractProduct* EditorVirtuale::create() const {
     return new Virtuale(getBoxId()->value(),
                getBoxPrezzo()->value(),
                getBoxNome()->text().toStdString(),

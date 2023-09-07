@@ -180,7 +180,7 @@ unsigned int Container<T>::getSize() const {
 template<class T>
 typename Container<T>::const_iterator Container<T>::begin() const {
     if (head != nullptr) {
-        std::cout << "lista piena" << std::endl;
+        // std::cout << "lista piena" << std::endl; // DEBUG
         return const_iterator(head, false);
     }
     return const_iterator();
@@ -193,7 +193,7 @@ typename Container<T>::const_iterator Container<T>::end() const {
         return const_iterator();
     }
 
-    std::cout << "lista piena" << std::endl;
+    // std::cout << "lista piena" << std::endl; // DEBUG
     return const_iterator(last + 1, true);
 }
 

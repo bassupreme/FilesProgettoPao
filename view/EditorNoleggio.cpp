@@ -28,11 +28,11 @@ void EditorNoleggio::injectItem(const Noleggio& product) {
     boxNoleggiante->setText(QString::fromStdString(product.getNoleggiante()));
 }
 
-AbstractProduct* EditorNoleggio::update() {
+AbstractProduct* EditorNoleggio::update() const {
     return create();
 }
 
-AbstractProduct* EditorNoleggio::create() {
+AbstractProduct* EditorNoleggio::create() const {
     std::cout << "EditorNoleggio::create()" << std::endl;
     return new Noleggio(getBoxId()->value(),
               getBoxPrezzo()->value(),

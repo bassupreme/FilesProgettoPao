@@ -15,7 +15,7 @@ public:
     ~Memory();
     Memory& add(const AbstractProduct*);
     Memory& remove(const AbstractProduct*);
-    std::vector<const AbstractProduct*> search(Filter*); // all'interno di search ci va il filtro. come parametro (ancora da implementare come classe
+    std::vector<const AbstractProduct*> search(Filter*) const; // all'interno di search ci va il filtro. come parametro (ancora da implementare come classe
     bool empty() const;
     Memory& clear();
 };

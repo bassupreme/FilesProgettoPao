@@ -14,8 +14,8 @@ private:
 public:
     EditorNoleggio(MainWindow* mainWindow, const AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
     void injectItem(const Noleggio&);
-    virtual AbstractProduct* update();
-    virtual AbstractProduct* create();
+    virtual AbstractProduct* update() const;
+    virtual AbstractProduct* create() const;
 signals:
     void signalUpdated(const AbstractProduct*);
 private slots:

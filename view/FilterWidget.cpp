@@ -82,14 +82,18 @@ void FilterWidget::emitSignalFilter() {
     if (currentFilter != nullptr) {
         clearCurrentFilter();
     }
-    currentFilter = new Filter();
-    if (searchEnabled->isChecked()) {
-        SubstringMatcher* ssMatcer = new SubstringMatcher(searchBar->text().toStdString());
-        currentFilter->addMatcher(ssMatcer);
-    }
-    if (priceEnabled->isChecked()) {
-        PriceMatcher* pMatcher = new PriceMatcher(lowerBox->value(), upperBox->value());
-        currentFilter->addMatcher(pMatcher);
+    if (searchEnabled->isChecked() || priceEnabled->isChecked()) {
+        currentFilter = new Filter();
+        if (searchEnabled->isChecked()) {
+            SubstringMatcher* ssMatcer = new SubstringMatcher(searchBar->text().toStdString());
+            currentFilter->addMatcher(ssMatcer);
+        }
+        if (priceEnabled->isChecked()) {
+            PriceMatcher* pMatcher = new PriceMatcher(lowerBox->value(), upperBox->value());
+            currentFilter->addMatcher(pMatcher);
+        }
+    } else {
+        currentFilter = nullptr;
     }
     clearFilter->setEnabled(true);
     emit signalFilter(currentFilter);

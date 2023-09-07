@@ -16,7 +16,7 @@ public:
     virtual ~AbstractFile(); // distruttore virtuale
     AbstractFile(const std::string p);
     const std::string& getPath() const; // implementazione di default
-    virtual std::vector<AbstractProduct*> ReadFrom(const IConverter&) = 0; // serializzazione
+    virtual std::vector<AbstractProduct*> ReadFrom(const IConverter&) const = 0; // serializzazione
     virtual AbstractFile& WriteTo(const std::vector<const AbstractProduct*>&, const IConverter&) = 0; // deserializzazione
 };
 

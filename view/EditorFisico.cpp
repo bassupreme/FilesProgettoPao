@@ -15,13 +15,13 @@ EditorFisico::EditorFisico(MainWindow *mainWindow, const AbstractProduct *subjec
     connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
 }
 
-AbstractProduct* EditorFisico::update() {
+AbstractProduct* EditorFisico::update() const {
     // prendere il subject e modificarlo a seconda dei parametri appena immessi
     std::cout << "EditorFisico::update()" << std::endl;
     return create();
 }
 
-AbstractProduct* EditorFisico::create() {
+AbstractProduct* EditorFisico::create() const {
     std::cout << "EditorFisico::create()" << std::endl;
     return new Fisico(getBoxId()->value(),
                getBoxPrezzo()->value(),

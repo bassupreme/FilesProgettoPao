@@ -8,7 +8,7 @@
 
 JsonFile::JsonFile(const std::string p) : AbstractFile(p) {} // implementazione costruttore di default
 
-std::vector<AbstractProduct*> JsonFile::ReadFrom(const IConverter& converter) {
+std::vector<AbstractProduct*> JsonFile::ReadFrom(const IConverter& converter) const {
     std::vector<AbstractProduct*> aux;
 
     // implementare la serializzazione

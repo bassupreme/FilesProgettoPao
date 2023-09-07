@@ -21,7 +21,6 @@ public:
     const std::map<unsigned int, AbstractProduct*>& getMemoryBuffer() const;
     void load(const std::vector<AbstractProduct*>&);
     std::vector<const AbstractProduct*> readAll() const;
-
     void clear();
     bool empty() const;
 };

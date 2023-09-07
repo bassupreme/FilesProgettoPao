@@ -13,8 +13,8 @@ private:
     QCheckBox* checkBoxUsato;
 public:
     EditorFisico(MainWindow* mainWindow, const AbstractProduct* subject = nullptr, QWidget* parent = nullptr);
-    virtual AbstractProduct* update(); // modifica del prodotto
-    virtual AbstractProduct* create(); // creazione del prodotto
+    virtual AbstractProduct* update() const; // modifica del prodotto
+    virtual AbstractProduct* create() const; // creazione del prodotto
     QCheckBox *getCheckBoxUsato() const;
     void injectItem(const Fisico&);
 signals:

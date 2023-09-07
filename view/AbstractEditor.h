@@ -39,8 +39,8 @@ public:
     QPushButton* getButtonApply() const;
     const AbstractProduct* getSubject() const;
     MainWindow* getMainWindow() const;
-    virtual AbstractProduct* update() = 0; // modifica del prodotto
-    virtual AbstractProduct* create() = 0; // creazione del prodotto
+    virtual AbstractProduct* update() const = 0; // modifica del prodotto
+    virtual AbstractProduct* create() const = 0; // creazione del prodotto
 private slots:
     void selectImage();
 protected slots:

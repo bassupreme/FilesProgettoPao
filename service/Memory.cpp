@@ -16,7 +16,7 @@ Memory &Memory::remove(const AbstractProduct* product) {
     return *this;
 }
 
-std::vector<const AbstractProduct *> Memory::search(Filter* filtro) {
+std::vector<const AbstractProduct *> Memory::search(Filter* filtro) const {
     std::vector<const AbstractProduct*> aux;
     Container<const AbstractProduct*>::const_iterator cit = container.begin();
 
