@@ -1,0 +1,64 @@
+[
+    {
+        "description": "Disco kind of blue di miles davis in digitale.  ed",
+        "id": 1,
+        "imagePath": "",
+        "name": "Davis M: Kind of blue",
+        "prezzo": 18.989999771118164,
+        "type": "virtuale"
+    },
+    {
+        "description": "Cd dell'album songbook.",
+        "id": 2,
+        "imagePath": "",
+        "name": "Kenny G: Songbook 1999 CD",
+        "prezzo": 37.9900016784668,
+        "type": "fisico",
+        "usato": true
+    },
+    {
+        "description": "Casse yamaha a noleggio",
+        "id": 3,
+        "imagePath": "",
+        "name": "Casse yamaha HS8",
+        "noleggiante": "Negozio",
+        "noleggiatore": "",
+        "prezzo": 30,
+        "type": "noleggio",
+        "usato": true
+    },
+    {
+        "description": "Descrizione",
+        "id": 4,
+        "imagePath": "",
+        "name": "Shiva: Milano Demons",
+        "prezzo": 10,
+        "type": "fisico",
+        "usato": false
+    },
+    {
+        "description": "Disco di platino per qualcosa.",
+        "id": 5,
+        "imagePath": "",
+        "name": "Kendrick Lamar: DAMN",
+        "prezzo": 20,
+        "type": "fisico",
+        "usato": true
+    },
+    {
+        "description": "Raccolta di componimenti di Bach",
+        "id": 6,
+        "imagePath": "",
+        "name": "J.S.Bach: Variazioni Goldberg",
+        "prezzo": 23,
+        "type": "virtuale"
+    },
+    {
+        "description": "Raccolta delle hit di Prince.",
+        "id": 7,
+        "imagePath": "",
+        "name": "Prince: Greatest Hits",
+        "prezzo": 10,
+        "type": "virtuale"
+    }
+]
