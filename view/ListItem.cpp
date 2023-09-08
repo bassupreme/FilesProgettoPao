@@ -48,12 +48,15 @@ ListItem::ListItem(const AbstractProduct* product, QWidget* parent) : QWidget(pa
 
     // aggiunta dei bottoni al layout.
     layout->addWidget(image);
+    layout->addStretch();
     layout->addLayout(infoLayout);
+    layout->addStretch();
     layout->addLayout(actions);
 
     // setting allineamenti dei widget
     layout->setAlignment(image, Qt::AlignLeft | Qt::AlignTop);
     layout->setAlignment(infoLayout, Qt::AlignCenter| Qt::AlignTop);
+    actions->setAlignment(Qt::AlignRight| Qt::AlignTop);
 
     // eliminazione oggetti
     delete renderer;
