@@ -72,7 +72,7 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     resultsWidget = new ResultsWidget(this);
     customScrollArea->setWidget(resultsWidget);
 
-    // stacked widget
+    // STACKED WIDGET
     stackedWidget = new QStackedWidget(this);
     stackedWidget->addWidget(customScrollArea);
 
@@ -130,25 +130,27 @@ void MainWindow::createDataset() {
                 this,
                 "Creates new Dataset",
                 "./",
-                "JSON files *.json"
-                );
+        "JSON files *.json"
+        );
+
     if (!path.isEmpty()) {
         std::cout << path.toStdString() << std::endl;
-    }
-    if(buffer != nullptr) {
-        buffer->clear();
-        delete buffer;
-    }
-    if (jsonFile != nullptr) {
-        delete jsonFile;
-    }
+        if(buffer != nullptr) {
+            buffer->clear();
+            delete buffer;
+        }
+        if (jsonFile != nullptr) {
+            delete jsonFile;
+        }
 
-    jsonFile = new JsonFile(path.toStdString());
-    buffer = new Buffer();
-    resultsWidget->clearResults();
-    search(nullptr);
-    createItem->setEnabled(true);
-    showStatus("New dataset created.", 3000);
+        jsonFile = new JsonFile(path.toStdString());
+        buffer = new Buffer();
+        resultsWidget->clearResults();
+        search(nullptr);
+        createItem->setEnabled(true);
+        showStatus("New dataset created.", 3000);
+
+    }
 }
 
 void MainWindow::openDataset() {
@@ -157,44 +159,44 @@ void MainWindow::openDataset() {
         "Creates new Dataset",
         "./",
         "JSON files *.json"
-    );
+        );
     if (!path.isEmpty()) {
         std::cout << path.toStdString() << std::endl;
-    }
-    if (buffer != nullptr) {
-        buffer->clear(); // clear del buffer
-    }
-    if (!memory.empty()) {
-        memory.clear();
-    }
+        if (buffer != nullptr) {
+            buffer->clear(); // clear del buffer
+        }
+        if (!memory.empty()) {
+            memory.clear();
+        }
 
-    // creazione buffer di memoria
-    buffer = new Buffer();
-    // creazione puntatore a file
-    jsonFile = new JsonFile(path.toStdString());
+        // creazione buffer di memoria
+        buffer = new Buffer();
+        // creazione puntatore a file
+        jsonFile = new JsonFile(path.toStdString());
 
-    // lettura dal file
-    JsonReader* reader = new JsonReader();
-    IConverter* converter = new JsonConverter(reader);
-    std::vector<AbstractProduct*> aux = jsonFile->ReadFrom(*converter);
+        // lettura dal file
+        JsonReader* reader = new JsonReader();
+        IConverter* converter = new JsonConverter(reader);
+        std::vector<AbstractProduct*> aux = jsonFile->ReadFrom(*converter);
 
-    // caricamento buffer e contenitore per la ricerca.
-    buffer->load(aux);
-    for(std::map<unsigned int, AbstractProduct*>::const_iterator cit = buffer->getMemoryBuffer().begin();
+        // caricamento buffer e contenitore per la ricerca.
+        buffer->load(aux);
+        for(std::map<unsigned int, AbstractProduct*>::const_iterator cit = buffer->getMemoryBuffer().begin();
         cit != buffer->getMemoryBuffer().end();
         cit++) {
-        memory.add(cit->second);
+            memory.add(cit->second);
+        }
+
+        // attivare la creazione di un elemento.
+        createItem->setEnabled(true);
+        filterWidget->getButtonApply()->setEnabled(true);
+        // chiamata del metodo per caricare i risultati
+        search(nullptr);
+
+        // deallocazione di memoria.
+        delete reader;
+        delete converter;
     }
-
-    // attivare la creazione di un elemento.
-    createItem->setEnabled(true);
-    filterWidget->getButtonApply()->setEnabled(true);
-    // chiamata del metodo per caricare i risultati
-    search(nullptr);
-
-    // deallocazione di memoria.
-    delete reader;
-    delete converter;
 }
 
 void MainWindow::writeDataset() {
