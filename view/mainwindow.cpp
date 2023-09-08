@@ -1,4 +1,5 @@
 // direttive d'inclusione
+#include <QApplication>
 #include <QStatusBar>
 #include <QScrollArea>
 #include <QSplitter>
@@ -48,6 +49,10 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     createItem = new QAction(
                 QIcon(QPixmap((":/assets/icons/new_item.svg"))),
                 "New Item"
+        );
+    QAction* close = new QAction(
+                QIcon(QPixmap((":/assets/icons/close.svg"))),
+                "Close"
                 );
     createItem ->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     createItem ->setEnabled(false);
@@ -59,6 +64,7 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     toolbar->addAction(save);
     toolbar->addSeparator();
     toolbar->addAction(createItem);
+    toolbar->addAction(close);
     toolbar->addSeparator();
 
     // SPLITTER
@@ -97,6 +103,7 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     connect(open, &QAction::triggered, this, &MainWindow::openDataset);
     connect(createItem, &QAction::triggered, this, &MainWindow::createProduct);
     connect(save, &QAction::triggered, this, &MainWindow::writeDataset);
+    connect(close, &QAction::triggered, this, &MainWindow::close);
     connect(filterWidget, SIGNAL(signalFilter(Filter*)), this, SLOT(search(Filter*)));
     connect(filterWidget, SIGNAL(signalCleared(Filter*)), this, SLOT(search(Filter*)));
 }
@@ -328,5 +335,23 @@ void MainWindow::search(Filter* filter) {
         std::cout << "RICERCA CON FILTRO" << std::endl; // DEBUG
         const std::vector<const AbstractProduct*> results = memory.search(filter);
         resultsWidget->renderResults(results);
+    }
+}
+
+void MainWindow::close() {
+    if (hasUnsavedChanges) {
+        QMessageBox::StandardButton confirmation;
+        confirmation = QMessageBox::question(
+                    this,
+                    "Quit?",
+                    "Ci sono dei cambiamenti non salvati.",
+                    QMessageBox::Yes | QMessageBox::No
+                    );
+        if (confirmation == QMessageBox::Yes) {
+            QApplication::quit();
+        }
+    }
+    else {
+        QApplication::quit();
     }
 }

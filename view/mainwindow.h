@@ -58,5 +58,6 @@ public slots:
     void deleteProduct(const AbstractProduct*);
     void updateProduct(const AbstractProduct*);
     void search(Filter*);
+    void close();
 };
 #endif // MAINWINDOW_H
