@@ -6,6 +6,7 @@
 #include "service/PriceMatcher.h"
 
 void FilterWidget::clearCurrentFilter() {
+    std::cout << "filtro precedente rimosso" << std::endl;
     delete currentFilter;
     currentFilter = nullptr;
 }
@@ -16,12 +17,15 @@ void FilterWidget::filterInitialSetup() {
     lowerBox->setEnabled(false);
     lowerBox->setValue(0.0);
     lowerBox->setMinimum(0.0);
+    lowerBox->setMaximum(__DBL_MAX__);
     upperBox->setEnabled(false);
     upperBox->setValue(0.0);
     upperBox->setMinimum(0.0);
+    upperBox->setMaximum(__DBL_MAX__);
     priceEnabled->setChecked(false);
     searchEnabled->setChecked(false);
     clearFilter->setEnabled(false);
+    applyFilter->setEnabled(false);
 }
 
 FilterWidget::~FilterWidget() {
@@ -70,6 +74,10 @@ FilterWidget::FilterWidget(QWidget* parent) : QWidget(parent), currentFilter(nul
     connect(priceEnabled, SIGNAL(toggled(bool)), this, SLOT(enablePriceInput()));
 }
 
+void FilterWidget::disable() {
+    filterInitialSetup();
+}
+
 QPushButton *FilterWidget::getButtonApply() const {
     return applyFilter;
 }
@@ -78,12 +86,13 @@ void FilterWidget::emitSignalFilter() {
     // creazione filter
 
     std::cout << "FilterWidget::emitSignalFilter" << std::endl;
-
+    bool clearEnabled = false;
     if (currentFilter != nullptr) {
         clearCurrentFilter();
     }
     if (searchEnabled->isChecked() || priceEnabled->isChecked()) {
         currentFilter = new Filter();
+        clearEnabled = true;
         if (searchEnabled->isChecked()) {
             SubstringMatcher* ssMatcer = new SubstringMatcher(searchBar->text().toStdString());
             currentFilter->addMatcher(ssMatcer);
@@ -93,9 +102,10 @@ void FilterWidget::emitSignalFilter() {
             currentFilter->addMatcher(pMatcher);
         }
     } else {
+        std::cout << "Filtro nullo" << std::endl;
         currentFilter = nullptr;
     }
-    clearFilter->setEnabled(true);
+    clearFilter->setEnabled(clearEnabled);
     emit signalFilter(currentFilter);
 }
 

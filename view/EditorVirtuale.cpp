@@ -4,12 +4,8 @@
 #include <QFormLayout>
 
 EditorVirtuale::EditorVirtuale(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
-    // setup oggetti grafici di questo editor specifico
-    editorVirtuale = new QLabel("EDITOR VIRTUALE"); // DEBUG
-
     // CONNESSIONE SEGNALI E SLOT
     connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
-
 }
 
 void EditorVirtuale::injectItem(const Virtuale& product) {

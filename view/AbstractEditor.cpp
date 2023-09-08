@@ -30,17 +30,20 @@ AbstractEditor::AbstractEditor(MainWindow *mainWindow, const AbstractProduct *su
     boxId->setMinimum(1);
     boxId->setMaximum(INT_MAX);
     boxPrezzo->setMinimum(0.0);
-    boxPrezzo->setMaximum(1000.0);
+    boxPrezzo->setMaximum(__DBL_MAX__);
 
     // aggiunta oggetti grafici al form
     vbox->addLayout(container);
     container->addRow("id:", boxId);
+    if (subject != nullptr) { boxId->setEnabled(false);}
     container->addRow("prezzo:", boxPrezzo);
     container->addRow("nome:", boxNome);
     container->addRow("imagePath:", imageRow);
     container->addRow("descrizione:", boxDescription);
 
+    // CONNESSIONE SEGNALI E SLOT
     connect(btnSelectImage, SIGNAL(clicked()), this, SLOT(selectImage()));
+
 }
 
 QFormLayout *AbstractEditor::getContainer() const {

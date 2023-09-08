@@ -13,7 +13,7 @@ void ItemRenderer::visit(const Fisico& product) {
     QLabel* usato;
     if (product.getUsato()) usato = new QLabel(QString::fromStdString("condizione: usato"));
     else usato = new QLabel(QString::fromStdString("condizione: nuovo"));
-    QLabel* prezzo = new QLabel(QString::fromStdString("prezzo: " + std::to_string(product.getPrezzo())));
+    QLabel* prezzo = new QLabel("prezzo: " + QString::number(product.getPrezzo()) + "€");
 
     renderedLayout->addWidget(nome);
     renderedLayout->addWidget(usato);
@@ -33,7 +33,7 @@ void ItemRenderer::visit(const Noleggio& product) {
     QLabel* usato;
     if (product.getUsato()) usato = new QLabel(QString::fromStdString("condizione: usato"));
     else usato = new QLabel(QString::fromStdString("condizione: nuovo"));
-    QLabel* prezzo = new QLabel(QString::fromStdString("prezzo orario: " + std::to_string(product.getPrezzo())));
+    QLabel* prezzo = new QLabel("prezzo: " + QString::number(product.getPrezzo()) + "€");
     QLabel* labelNoleggiatore = new QLabel(QString::fromStdString("noleggiatore: " + product.getNoleggiatore()));
     QLabel* labelNoleggiante = new QLabel(QString::fromStdString("noleggiante: " + product.getNoleggiante()));
 
@@ -56,7 +56,7 @@ void ItemRenderer::visit(const Virtuale& product) {
     renderedLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
     QLabel* nome = new QLabel(QString::fromStdString("nome: " + product.getNome()));
-    QLabel* prezzo = new QLabel(QString::fromStdString("prezzo orario: " + std::to_string(product.getPrezzo())));
+    QLabel* prezzo = new QLabel("prezzo: " + QString::number(product.getPrezzo()) + "€");
     QLabel* virtualInfo = new QLabel(QString::fromStdString("disponibile per il download"));
 
     renderedLayout->addWidget(nome);

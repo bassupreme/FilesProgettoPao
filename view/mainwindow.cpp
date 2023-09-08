@@ -41,18 +41,6 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
                 "Save"
                 );
     save->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
-    /*
-    QAction* save_as = new QAction(
-                QIcon(QPixmap((":/assets/icons/save_as.svg"))),
-                "Save As"
-                );
-    save_as->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_S));
-    QAction* close = new QAction(
-                QIcon(QPixmap((":/assets/icons/close.svg"))),
-                "Close"
-                );
-    close->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Q));
-    */
     QAction* togge_toolbar = new QAction(
                 "Toolbar"
                 );
@@ -68,11 +56,9 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     toolbar->addAction(create);
     toolbar->addAction(open);
     toolbar->addAction(save);
-    // toolbar->addAction(save_as);
     toolbar->addSeparator();
     toolbar->addAction(createItem);
     toolbar->addSeparator();
-    // toolbar->addAction(close);
 
     // SPLITTER
     QSplitter* splitter = new QSplitter(this);
@@ -125,6 +111,10 @@ void MainWindow::clearResults() {
 
 void MainWindow::setHasUnsavedChanges(const bool& unsavedChanges) {
     hasUnsavedChanges = unsavedChanges;
+}
+
+FilterWidget *MainWindow::getFilterWidget() const {
+    return filterWidget;
 }
 
 Buffer *MainWindow::getBuffer() const {
@@ -273,6 +263,7 @@ void MainWindow::createProduct() {
     stackedWidget->addWidget(area);
 
     stackedWidget->setCurrentIndex(1);
+    filterWidget->disable();
     showStatus("Creating Item", 0);
 }
 
@@ -318,12 +309,14 @@ void MainWindow::updateProduct(const AbstractProduct* product) {
     stackedWidget->addWidget(area);
 
     stackedWidget->setCurrentIndex(1);
+    filterWidget->getButtonApply()->setEnabled(false);
     showStatus("Editing Item", 0);
 
 }
 
 void MainWindow::search(Filter* filter) {
     resultsWidget->clearResults();
+    filterWidget->getButtonApply()->setEnabled(true);
     if (filter == nullptr) {
         resultsWidget->renderResults(buffer->readAll());
         stackedWidget->setCurrentIndex(0);

@@ -45,6 +45,7 @@ public:
     void clearResults();
     void showStatus(const std::string& message, const unsigned int duration = 0);
     void setHasUnsavedChanges(const bool&);
+    FilterWidget* getFilterWidget() const;
     Buffer *getBuffer() const;
     Memory& getMemory() const;
 public slots:

@@ -35,7 +35,7 @@ public:
     void setHasControl(const bool);
     Filter* getCurrentFilter() const;
     */
-
+    void disable();
     QPushButton* getButtonApply() const;
 private slots:
     void emitSignalFilter();
