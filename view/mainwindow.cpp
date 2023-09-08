@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <iostream>
 
 // inclusioni utente
@@ -201,7 +202,7 @@ void MainWindow::openDataset() {
 
 void MainWindow::writeDataset() {
     if (jsonFile == nullptr || buffer == nullptr) {
-        std::cout << "IMPOSSIBILE SCRIVERE UN FILE INESISTENTE" << std::endl;
+        QMessageBox::about(this, "errore", "Nessun file selezionato.");
         return;
     }
 
