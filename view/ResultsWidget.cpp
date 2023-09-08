@@ -44,9 +44,10 @@ void ResultsWidget::renderResults(const std::vector<const AbstractProduct*>& res
         // widgetPolicy.setVerticalStretch(0);
         // listItem->setSizePolicy(widgetPolicy);
 
+
         // aggiunta al layout
         listItems.push_back(listItem);
-        verticalLayout->setAlignment(listItem, Qt::AlignRight | Qt::AlignTop);
+        verticalLayout->setAlignment(listItem, Qt::AlignLeft| Qt::AlignTop);
         verticalLayout->addWidget(listItem);
     }
 }

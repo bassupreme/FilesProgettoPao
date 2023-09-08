@@ -39,24 +39,23 @@ ListItem::ListItem(const AbstractProduct* product, QWidget* parent) : QWidget(pa
     editButton   = new QPushButton(QIcon(QPixmap(":/assets/icons/edit.svg")), "");
     actions->addWidget(deleteButton);
     actions->addWidget(editButton);
-    actions->setAlignment(Qt::AlignRight| Qt::AlignTop);
+    actions->setAlignment(Qt::AlignCenter| Qt::AlignTop);
 
-    actions->addStretch();
 
+    // CONNESSIONE SEGNALI E SLOT
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(emitDeleteSignal()));
     connect(editButton, SIGNAL(clicked()), this, SLOT(emitUpdateSignal()));
 
     // aggiunta dei bottoni al layout.
     layout->addWidget(image);
-    layout->addStretch();
     layout->addLayout(infoLayout);
     layout->addStretch();
     layout->addLayout(actions);
 
     // setting allineamenti dei widget
     layout->setAlignment(image, Qt::AlignLeft | Qt::AlignTop);
-    layout->setAlignment(infoLayout, Qt::AlignCenter| Qt::AlignTop);
-    actions->setAlignment(Qt::AlignRight| Qt::AlignTop);
+    layout->setAlignment(infoLayout, Qt::AlignLeft| Qt::AlignTop);
+    layout->setAlignment(actions, Qt::AlignRight| Qt::AlignTop);
 
     // eliminazione oggetti
     delete renderer;
