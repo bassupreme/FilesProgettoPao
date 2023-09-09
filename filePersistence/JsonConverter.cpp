@@ -2,7 +2,7 @@
 #include "JsonVisitor.h"
 #include "JsonReader.h"
 
-JsonConverter::JsonConverter(IReader* r) : IConverter(r) { } // implementazione costruttore di default
+JsonConverter::JsonConverter(IReader& r) : IConverter(r) { } // implementazione costruttore di default
 
 
 QJsonObject JsonConverter::getJsonFromObject(const AbstractProduct* item) const {
@@ -15,5 +15,5 @@ QJsonObject JsonConverter::getJsonFromObject(const AbstractProduct* item) const 
 
 AbstractProduct* JsonConverter::getObjectFromJson(const QJsonObject& json) const {
     // logica per convertire un oggetto da string (QJsonObject) a AbstractProduct*
-    return (getReader())->read(json);
+    return (getReader()).read(json);
 }

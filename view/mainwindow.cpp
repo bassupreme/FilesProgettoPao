@@ -183,9 +183,9 @@ void MainWindow::openDataset() {
         jsonFile = new JsonFile(path.toStdString());
 
         // lettura dal file
-        JsonReader* reader = new JsonReader();
-        IConverter* converter = new JsonConverter(reader);
-        std::vector<AbstractProduct*> aux = jsonFile->ReadFrom(*converter);
+        JsonReader reader;
+        JsonConverter converter(reader);
+        std::vector<AbstractProduct*> aux = jsonFile->ReadFrom(converter);
 
         // caricamento buffer e contenitore per la ricerca.
         buffer->load(aux);
@@ -200,10 +200,6 @@ void MainWindow::openDataset() {
         filterWidget->getButtonApply()->setEnabled(true);
         // chiamata del metodo per caricare i risultati
         search(nullptr);
-
-        // deallocazione di memoria.
-        delete reader;
-        delete converter;
     }
 }
 
@@ -213,19 +209,15 @@ void MainWindow::writeDataset() {
         return;
     }
 
-    JsonReader* reader = new JsonReader();
-    IConverter* converter = new JsonConverter(reader);
-    jsonFile->WriteTo(buffer->readAll(), *converter);
+    JsonReader reader;
+    JsonConverter converter(reader);
+    jsonFile->WriteTo(buffer->readAll(), converter);
 
     // settare flag di cambiamenti a falso
     setHasUnsavedChanges(false);
 
     // mostrare status nella statusbar
     showStatus("dataset salvato", 5000);
-
-    // deallocazione di memoria
-    delete reader;
-    delete converter;
 }
 
 void MainWindow::showStatus(const std::string& message, const unsigned int duration) {
