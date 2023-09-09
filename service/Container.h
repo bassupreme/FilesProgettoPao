@@ -17,6 +17,14 @@ private:
     };
     Node* head; // basta questo per la lista singolarmente linkata.
     Node* last;
+    static void destroy(Node* head) {
+        while (head != 0) {
+            Node* next = head->next;
+            delete head;
+            head = next;
+        }
+    }
+
 public:
     class const_iterator {
         friend class Container<T>;
@@ -101,7 +109,7 @@ Container<T>::Container() : head(nullptr), last(nullptr) { }
 
 template<class T>
 Container<T>::~Container() {
-    clear();
+    destroy(head);
 }
 
 template<class T>
@@ -147,11 +155,8 @@ void Container<T>::remove(T data) {
 
 template <class T>
 void Container<T>::clear() {
-    while (head != 0) {
-        Node* next = head->next;
-        delete head;
-        head = next;
-    }
+    destroy(head);
+
 }
 
 template<class T>
