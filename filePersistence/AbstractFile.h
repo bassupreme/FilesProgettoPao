@@ -7,7 +7,7 @@
 #include "model/AbstractProduct.h"
 
 // dichiarazioni incomplete
-class IConverter; 
+class IConverter;
 
 class AbstractFile { // rinominare ad AbstractFile
 private:

@@ -9,7 +9,7 @@
 // dichiarazioni incomplete
 class IReader;
 
-class IConverter { // rinominare ad AbstractConverter (in quanto è una classe astratta)
+class IConverter { // rinominare ad IConverter (in quanto è una classe astratta)
 private:
     IReader& reader;
 public:
