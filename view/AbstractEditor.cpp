@@ -115,6 +115,6 @@ void AbstractEditor::updatedProduct(const AbstractProduct* product) {
     getMainWindow()->setHasUnsavedChanges(true);
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
-    getMainWindow()->showStatus("updated product", 5000);
+    getMainWindow()->showStatus("Prodotto modificato", 3000);
 }
 
