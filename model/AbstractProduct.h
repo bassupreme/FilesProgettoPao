@@ -10,7 +10,6 @@
 using std::cout;
 using std::endl;
 
-// classe astratta
 class AbstractProduct {
 private:
     const unsigned int id;
@@ -19,10 +18,8 @@ private:
     std::string imagePath;
     std::string description;
 public:
-    // costruttore standard e distruttore standard
-    AbstractProduct(const unsigned int i, float p, std::string n, std::string path, std::string description);
     virtual ~AbstractProduct();
-    // getters e setters
+    AbstractProduct(const unsigned int i, float p, std::string n, std::string path, std::string description);
     const unsigned int getId() const;
     const float& getPrezzo() const;
     AbstractProduct& setPrezzo(const float& p);
@@ -32,7 +29,6 @@ public:
     AbstractProduct& setImagePath(const std::string& path);
     const std::string& getDescription() const;
     AbstractProduct& setDescription(const std::string& des);
-    // metodi virtuali puri
     virtual void accept(IVisitor& v) = 0;
     virtual void accept(IConstVisitor& v) const = 0;
 };

@@ -9,7 +9,6 @@ const unsigned int AbstractProduct::getId() const {
     return id;
 }
 
-
 const float& AbstractProduct::getPrezzo() const {
     return prezzo;
 }

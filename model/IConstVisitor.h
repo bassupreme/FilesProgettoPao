@@ -1,7 +1,6 @@
 #ifndef ICONSTVISITOR_H
 #define ICONSTVISITOR_H
 
-// dichiarazioni incomplete.
 class Virtuale;
 class Fisico;
 class Noleggio;
@@ -15,4 +14,4 @@ public:
 };
 
 
-#endif // ICONSTVISITOR_H
+#endif

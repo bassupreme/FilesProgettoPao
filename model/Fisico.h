@@ -14,4 +14,4 @@ public:
     virtual void accept(IConstVisitor& v) const;
 };
 
-#endif // FISICO_H
+#endif

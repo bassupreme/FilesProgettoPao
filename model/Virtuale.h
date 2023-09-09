@@ -1,7 +1,6 @@
 #ifndef VIRTUALE_H
 #define VIRTUALE_H
 
-// direttive d'inclusione
 #include "AbstractProduct.h"
 
 class Virtuale : public AbstractProduct {
@@ -11,4 +10,4 @@ public:
     virtual void accept(IConstVisitor& v) const;
 };
 
-#endif // VIRTUALE_H
+#endif
