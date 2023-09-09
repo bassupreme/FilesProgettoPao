@@ -8,5 +8,6 @@
         <file>assets/icons/open.svg</file>
         <file>assets/icons/save.svg</file>
         <file>assets/images/placeholder.svg</file>
+        <file>assets/icons/product.svg</file>
     </qresource>
 </RCC>

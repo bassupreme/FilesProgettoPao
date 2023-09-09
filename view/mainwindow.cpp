@@ -30,17 +30,17 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
     // CREAZIONE ACTIONS DELLA TOOLBAR
     QAction* create = new QAction(
                 QIcon(QPixmap((":/assets/icons/new.svg"))),
-                "New"
+                "Nuovo dataset"
                 );
     create->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
     QAction* open = new QAction(
                 QIcon(QPixmap((":/assets/icons/open.svg"))),
-                "Open"
+                "Apri"
                 );
     open->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
     QAction* save = new QAction(
                 QIcon(QPixmap((":/assets/icons/save.svg"))),
-                "Save"
+                "Salva"
                 );
     save->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
     QAction* togge_toolbar = new QAction(
@@ -48,11 +48,11 @@ MainWindow::MainWindow(Memory& memory, QWidget *parent) : QMainWindow(parent), b
                 );
     createItem = new QAction(
                 QIcon(QPixmap((":/assets/icons/new_item.svg"))),
-                "New Item"
+                "Nuovo Prodotto"
         );
     QAction* close = new QAction(
                 QIcon(QPixmap((":/assets/icons/close.svg"))),
-                "Close"
+                "Esci"
                 );
     createItem ->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     createItem ->setEnabled(false);
