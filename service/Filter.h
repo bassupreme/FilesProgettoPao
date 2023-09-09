@@ -14,4 +14,4 @@ public:
     bool matchesAll(const AbstractProduct&) const;
 };
 
-#endif // FILTER_H
+#endif

@@ -12,4 +12,4 @@ public:
     virtual bool hasMatch(const AbstractProduct&) const;
 };
 
-#endif // PRICEMATCHER_H
+#endif

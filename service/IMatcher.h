@@ -3,10 +3,10 @@
 
 #include "model/AbstractProduct.h"
 
-class IMatcher { // interfaccia IMatcher
+class IMatcher {
 public:
     virtual ~IMatcher() {}
     virtual bool hasMatch(const AbstractProduct&) const = 0;
 };
 
-#endif // IMATCHER_H
+#endif

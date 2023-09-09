@@ -1,7 +1,6 @@
 #include "Buffer.h"
 
 
-// comportamento costruttore standard.
 void Buffer::destroy(const std::map<unsigned int, AbstractProduct*>& b) {
     std::map<unsigned int, AbstractProduct*>::const_iterator it;
     for(it = b.begin(); it != b.end(); it++) {
@@ -9,15 +8,12 @@ void Buffer::destroy(const std::map<unsigned int, AbstractProduct*>& b) {
     }
 }
 
-Buffer::Buffer() {
-
-}
+Buffer::Buffer() {}
 
 Buffer::~Buffer() {
     destroy(memoryBuffer);
 }
 
-// controlla se un elemento esiste all'interno del buffer
 bool Buffer::exists(const unsigned int key) const {
     std::map<unsigned int, AbstractProduct*>::const_iterator it = memoryBuffer.find(key);
     return (it != memoryBuffer.end());
@@ -59,7 +55,6 @@ const std::map<unsigned int, AbstractProduct*>& Buffer::getMemoryBuffer() const 
 
 void Buffer::load(const std::vector<AbstractProduct*>& aux) {
     for(std::vector<AbstractProduct*>::const_iterator cit = aux.begin(); cit != aux.end(); cit++) {
-        std::cout << (*cit)->getId() << " | " << (*cit)->getNome() << std::endl;
         memoryBuffer[(*cit)->getId()] = (*cit);
     }
 }

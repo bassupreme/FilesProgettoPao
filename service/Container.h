@@ -61,7 +61,6 @@ Container<T>::const_iterator::const_iterator(const Node* p, bool pte) : ptr(p), 
 template<class T>
 Container<T>::const_iterator::const_iterator() : ptr(nullptr), pastTheEnd(false) {}
 
-// prefisso
 template<class T>
 typename Container<T>::const_iterator& Container<T>::const_iterator::operator++() {
     if (ptr != nullptr && !pastTheEnd) {
@@ -71,7 +70,6 @@ typename Container<T>::const_iterator& Container<T>::const_iterator::operator++(
     return *this;
 }
 
-// postfisso
 template<class T>
 typename Container<T>::const_iterator Container<T>::const_iterator::operator++(int) {
     const_iterator aux(*this);
@@ -97,8 +95,7 @@ bool Container<T>::const_iterator::operator!=(const const_iterator& cit) const {
     return ptr != cit.ptr;
 }
 
-// container
-
+// CONTAINER
 template<class T>
 Container<T>::Container() : head(nullptr), last(nullptr) { }
 
@@ -143,7 +140,6 @@ void Container<T>::remove(T data) {
             delete current;
             return;
         }
-        // informazioni per continuare il ciclo
         previous = current;
         current = current->next;
     }
@@ -163,24 +159,20 @@ bool Container<T>::empty() const {
     return head == nullptr;
 }
 
-// utile in fase di debug. potrebbe essere utile ad altri widget tuttavia.
 template<class T>
 unsigned int Container<T>::getSize() const {
     Container<T>::Node* aux = head;
-
     unsigned int size = 0;
     while (aux != nullptr) {
         size+=1;
         aux = aux->next;
     }
-
     return size;
 }
 
 template<class T>
 typename Container<T>::const_iterator Container<T>::begin() const {
     if (head != nullptr) {
-        // std::cout << "lista piena" << std::endl; // DEBUG
         return const_iterator(head, false);
     }
     return const_iterator();
@@ -192,8 +184,6 @@ typename Container<T>::const_iterator Container<T>::end() const {
         std::cout << "lista vuota" << std::endl;
         return const_iterator();
     }
-
-    // std::cout << "lista piena" << std::endl; // DEBUG
     return const_iterator(last + 1, true);
 }
 

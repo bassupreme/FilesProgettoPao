@@ -14,4 +14,4 @@ public:
     virtual bool hasMatch(const AbstractProduct&) const;
 };
 
-#endif // SUBSTRINGMATCHER_H
+#endif

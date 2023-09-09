@@ -11,8 +11,6 @@ Memory& Memory::add(const AbstractProduct* product) {
 
 Memory &Memory::remove(const AbstractProduct* product) {
     container.remove(product);
-    // DEBUG
-    std::cout << "size container: " << container.getSize() << std::endl;
     return *this;
 }
 

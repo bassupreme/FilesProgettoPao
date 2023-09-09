@@ -21,7 +21,7 @@ bool Filter::matchesAll(const AbstractProduct& product) const {
         }
         return true;
     }
-    return true; // in caso passa tutti i controlli
+    return true;
 }
 
 
