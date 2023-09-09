@@ -53,9 +53,9 @@ void ItemCreator::create() {
         buffer->insert(createdProduct->getId(), createdProduct);
         mainWindow->getMemory().add(createdProduct);
         mainWindow->setHasUnsavedChanges(true);
-        mainWindow->showStatus("Product created", 3000);
+        mainWindow->showStatus("Prodotto creato", 3000);
     } else {
-        QMessageBox::about(this, "errore", "esiste gia' un prodotto con quell'id.");
+        QMessageBox::about(this, "errore", "Esiste già un prodotto con quell'id.");
     }
     mainWindow->clearResults();
     mainWindow->search(nullptr);
