@@ -5,7 +5,7 @@ AbstractProduct::AbstractProduct(const unsigned int i, float p, std::string n, s
 
 AbstractProduct::~AbstractProduct() {}
 
-unsigned int AbstractProduct::getId() const {
+const unsigned int AbstractProduct::getId() const {
     return id;
 }
 

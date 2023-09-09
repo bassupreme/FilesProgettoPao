@@ -100,7 +100,6 @@ void AbstractEditor::selectImage() {
 
 void AbstractEditor::updatedProduct(const AbstractProduct* product) {
     std::cout << "AbstractEditor::updatedProduct" << std::endl;
-
     // vecchio prodotto
     AbstractProduct* aux = update();
 
@@ -113,6 +112,7 @@ void AbstractEditor::updatedProduct(const AbstractProduct* product) {
     memory.remove(product);
     memory.add(aux);
 
+    getMainWindow()->setHasUnsavedChanges(true);
     getMainWindow()->clearResults();
     getMainWindow()->search(nullptr);
     getMainWindow()->showStatus("updated product", 5000);

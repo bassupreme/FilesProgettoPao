@@ -13,7 +13,7 @@ using std::endl;
 // classe astratta
 class AbstractProduct {
 private:
-    unsigned int id;
+    const unsigned int id;
     float prezzo;
     std::string nome;
     std::string imagePath;
@@ -23,7 +23,7 @@ public:
     AbstractProduct(const unsigned int i, float p, std::string n, std::string path, std::string description);
     virtual ~AbstractProduct();
     // getters e setters
-    unsigned int getId() const;
+    const unsigned int getId() const;
     const float& getPrezzo() const;
     AbstractProduct& setPrezzo(const float& p);
     const std::string& getNome() const;
