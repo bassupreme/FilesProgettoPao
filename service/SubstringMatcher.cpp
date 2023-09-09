@@ -2,10 +2,10 @@
 
 
 bool SubstringMatcher::matches(const AbstractProduct & product) const {
-    const std::string& stringa = product.getNome();
-    int x = stringa.find(substring, 0);
+    const std::string& stringa_totale = product.getNome();
+    int found =  stringa_totale.find(substring, 0);
 
-    if (x == -1) return false;
+    if (found == -1) return false;
     return true;
 }
 
