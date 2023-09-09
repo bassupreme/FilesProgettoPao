@@ -38,7 +38,7 @@ AbstractEditor::AbstractEditor(MainWindow *mainWindow, const AbstractProduct *su
     if (subject != nullptr) { boxId->setEnabled(false);}
     container->addRow("prezzo:", boxPrezzo);
     container->addRow("nome:", boxNome);
-    container->addRow("imagePath:", imageRow);
+    container->addRow("immagine:", imageRow);
     container->addRow("descrizione:", boxDescription);
 
     // CONNESSIONE SEGNALI E SLOT

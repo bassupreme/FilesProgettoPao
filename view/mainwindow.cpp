@@ -247,7 +247,7 @@ void MainWindow::createProduct() {
     ItemCreator* itemCreator = new ItemCreator(this);
     layout->addWidget(itemCreator);
     layout->setAlignment(itemCreator, Qt::AlignHCenter | Qt::AlignTop);
-    QPushButton* createItem = new QPushButton("CREATE PRODUCT");
+    QPushButton* createItem = new QPushButton("CREA PRODOTTO");
     layout->addWidget(createItem);
     layout->setAlignment(createItem, Qt::AlignHCenter | Qt::AlignBottom);
     connect(createItem, SIGNAL(clicked()), itemCreator, SLOT(create()));
@@ -262,7 +262,7 @@ void MainWindow::createProduct() {
 
     stackedWidget->setCurrentIndex(1);
     filterWidget->disable();
-    showStatus("Creating Item", 0);
+    showStatus("Creazione prodotto", 0);
 }
 
 void MainWindow::deleteProduct(const AbstractProduct* product) {
@@ -290,7 +290,7 @@ void MainWindow::updateProduct(const AbstractProduct* product) {
     QWidget* editor = renderer.getRenderedEditor();
     layout->addWidget(editor);
     layout->setAlignment(editor, Qt::AlignHCenter | Qt::AlignTop);
-    QPushButton* applyChanges = new QPushButton("APPLY CHANGES");
+    QPushButton* applyChanges = new QPushButton("APPLICA");
     layout->addWidget(applyChanges);
     layout->setAlignment(applyChanges, Qt::AlignHCenter | Qt::AlignBottom);
     connect(applyChanges, SIGNAL(clicked()), editor, SLOT(emitSignalUpdate()));
@@ -305,7 +305,7 @@ void MainWindow::updateProduct(const AbstractProduct* product) {
 
     stackedWidget->setCurrentIndex(1);
     filterWidget->getButtonApply()->setEnabled(false);
-    showStatus("Editing Item", 0);
+    showStatus("Modifica prodotto", 0);
 
 }
 

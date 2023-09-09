@@ -59,10 +59,10 @@ FilterWidget::FilterWidget(QWidget* parent) : QWidget(parent), currentFilter(nul
     clearFilter = new QPushButton("CLEAR");
     applyFilter = new QPushButton("APPLY");
 
-    form->addRow("search:", searchLayout);
-    form->addRow("price limit:", priceLayout);
-    form->addRow("clear:", clearFilter);
-    form->addRow("apply:", applyFilter);
+    form->addRow("cerca:", searchLayout);
+    form->addRow("prezzo:", priceLayout);
+    form->addRow("reset:", clearFilter);
+    form->addRow("applica:", applyFilter);
 
     // setup iniziale del widget
     filterInitialSetup();
