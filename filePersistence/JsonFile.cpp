@@ -6,12 +6,11 @@
 #include <QFile>
 #include <QJsonDocument>
 
-JsonFile::JsonFile(const std::string p) : AbstractFile(p) {} // implementazione costruttore di default
+JsonFile::JsonFile(const std::string p) : AbstractFile(p) {}
 
 std::vector<AbstractProduct*> JsonFile::ReadFrom(const IConverter& converter) const {
     std::vector<AbstractProduct*> aux;
 
-    // implementare la serializzazione
     QFile json_file(QString::fromStdString(getPath()));
     if(!json_file.open(QFile::ReadOnly)) {
         std::cout << "impossibile aprire il file in lettura" << std::endl;
@@ -29,7 +28,7 @@ std::vector<AbstractProduct*> JsonFile::ReadFrom(const IConverter& converter) co
     return aux;
 }
 
-JsonFile& JsonFile::WriteTo(const std::vector<const AbstractProduct*>& prodotti, const IConverter& converter) { // covarianza sul tipo di ritorno
+JsonFile& JsonFile::WriteTo(const std::vector<const AbstractProduct*>& prodotti, const IConverter& converter) {
     QJsonArray jsonItems;
 
     for(std::vector<const AbstractProduct*>::const_iterator it = prodotti.begin(); it!= prodotti.end(); it++) {
@@ -51,6 +50,5 @@ JsonFile& JsonFile::WriteTo(const std::vector<const AbstractProduct*>& prodotti,
         json_file.flush();
     }
     json_file.close();
-
     return *this;
-} // implementazione specifica
+}

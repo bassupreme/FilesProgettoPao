@@ -9,13 +9,13 @@
 // dichiarazioni incomplete
 class IReader;
 
-class IConverter { // rinominare ad IConverter (in quanto è una classe astratta)
+class IConverter {
 private:
     IReader& reader;
 public:
     virtual ~IConverter() {}
     IConverter(IReader& r) : reader(r) {}
-    const IReader& getReader() const { return reader; } // implementazione di default
+    const IReader& getReader() const { return reader; }
     virtual QJsonObject getJsonFromObject(const AbstractProduct* item) const = 0;
     virtual AbstractProduct* getObjectFromJson(const QJsonObject& json) const = 0;
 }; 

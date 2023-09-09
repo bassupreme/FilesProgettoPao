@@ -9,7 +9,6 @@
 // l'implementazione del costruttore di default va bene 
 
 AbstractProduct* JsonReader::read(const QJsonObject& jsonObject) const {
-    // logica per leggere da jsonObject
     QJsonValue type = jsonObject.value("type");
     if (type.isUndefined()) {
         std::cout << "Missing item type." << std::endl;

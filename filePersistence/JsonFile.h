@@ -9,9 +9,9 @@
 class JsonFile : public AbstractFile {
 
 public:
-    JsonFile(const std::string p); // implementazione specifica
-    virtual std::vector<AbstractProduct*> ReadFrom(const IConverter&) const; // implementazione specifica
-    virtual JsonFile& WriteTo(const std::vector<const AbstractProduct*>&, const IConverter&); // implementazione specifica
+    JsonFile(const std::string p);
+    virtual std::vector<AbstractProduct*> ReadFrom(const IConverter&) const;
+    virtual JsonFile& WriteTo(const std::vector<const AbstractProduct*>&, const IConverter&);
 };
 
 #endif

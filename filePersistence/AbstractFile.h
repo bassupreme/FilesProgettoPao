@@ -9,15 +9,15 @@
 // dichiarazioni incomplete
 class IConverter;
 
-class AbstractFile { // rinominare ad AbstractFile
+class AbstractFile {
 private:
-    std::string path; // ogni file ha un percorso
+    std::string path;
 public:
-    virtual ~AbstractFile(); // distruttore virtuale
+    virtual ~AbstractFile();
     AbstractFile(const std::string p);
-    const std::string& getPath() const; // implementazione di default
-    virtual std::vector<AbstractProduct*> ReadFrom(const IConverter&) const = 0; // serializzazione
-    virtual AbstractFile& WriteTo(const std::vector<const AbstractProduct*>&, const IConverter&) = 0; // deserializzazione
+    const std::string& getPath() const;
+    virtual std::vector<AbstractProduct*> ReadFrom(const IConverter&) const = 0;
+    virtual AbstractFile& WriteTo(const std::vector<const AbstractProduct*>&, const IConverter&) = 0;
 };
 
 #endif
