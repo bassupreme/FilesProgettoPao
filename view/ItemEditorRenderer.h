@@ -18,4 +18,4 @@ public:
     QWidget* getRenderedEditor() const;
 };
 
-#endif // ITEMEDITORRENDERER_H
+#endif

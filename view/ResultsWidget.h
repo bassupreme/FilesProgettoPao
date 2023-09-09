@@ -28,5 +28,4 @@ public:
     void clearResults();
 
 };
-
-#endif // RESULTSWIDGET_H
+#endif

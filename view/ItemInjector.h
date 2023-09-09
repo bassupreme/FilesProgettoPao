@@ -23,4 +23,4 @@ public:
     virtual void visit(const Noleggio&);
 };
 
-#endif // ITEMINJECTOR_H
+#endif

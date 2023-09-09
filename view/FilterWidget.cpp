@@ -83,9 +83,7 @@ QPushButton *FilterWidget::getButtonApply() const {
 }
 
 void FilterWidget::emitSignalFilter() {
-    // creazione filter
 
-    std::cout << "FilterWidget::emitSignalFilter" << std::endl;
     bool clearEnabled = false;
     if (currentFilter != nullptr) {
         clearCurrentFilter();
@@ -102,7 +100,6 @@ void FilterWidget::emitSignalFilter() {
             currentFilter->addMatcher(pMatcher);
         }
     } else {
-        std::cout << "Filtro nullo" << std::endl;
         currentFilter = nullptr;
     }
     clearFilter->setEnabled(clearEnabled);

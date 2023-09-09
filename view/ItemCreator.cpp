@@ -1,9 +1,7 @@
-// inclusioni di Qt
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QMessageBox>
 
-// inclusioni file dev
 #include "ItemCreator.h"
 #include "AbstractEditor.h"
 #include "EditorFisico.h"
@@ -25,7 +23,6 @@ ItemCreator::ItemCreator(MainWindow* mainWindow, QWidget* parent) : QWidget(pare
     layout->addWidget(type_input);
 
     // stackedEditor
-
     stackedEditors = new QStackedWidget();
     layout->setAlignment(stackedEditors, Qt::AlignHCenter | Qt::AlignTop);
 
@@ -48,7 +45,6 @@ ItemCreator::ItemCreator(MainWindow* mainWindow, QWidget* parent) : QWidget(pare
 }
 
 void ItemCreator::create() {
-    // logica per creare il tutto
     AbstractEditor* editor = editors[stackedEditors->currentIndex()];
     AbstractProduct* createdProduct = editor->create();
     Buffer* buffer = mainWindow->getBuffer();
@@ -59,8 +55,6 @@ void ItemCreator::create() {
         mainWindow->setHasUnsavedChanges(true);
         mainWindow->showStatus("Product created", 3000);
     } else {
-        // DEBUG
-        std::cout << "ItemCreator::create()" << std::endl;
         QMessageBox::about(this, "errore", "esiste gia' un prodotto con quell'id.");
     }
     mainWindow->clearResults();

@@ -5,17 +5,11 @@
 
 
 
-ItemInjector::ItemInjector(EditorFisico *editorFisico) : editorFisico(editorFisico){
+ItemInjector::ItemInjector(EditorFisico *editorFisico) : editorFisico(editorFisico){}
 
-}
+ItemInjector::ItemInjector(EditorVirtuale *editorVirtuale) : editorVirtuale(editorVirtuale) {}
 
-ItemInjector::ItemInjector(EditorVirtuale *editorVirtuale) : editorVirtuale(editorVirtuale) {
-
-}
-
-ItemInjector::ItemInjector(EditorNoleggio *editorNoleggio) : editorNoleggio(editorNoleggio) {
-
-}
+ItemInjector::ItemInjector(EditorNoleggio *editorNoleggio) : editorNoleggio(editorNoleggio) {}
 
 void ItemInjector::visit(const Virtuale& product) {
     editorVirtuale->injectItem(product);

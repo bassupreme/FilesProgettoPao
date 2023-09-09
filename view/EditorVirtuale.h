@@ -17,7 +17,6 @@ signals:
     void signalUpdated(const AbstractProduct*);
 private slots:
     void emitSignalUpdate();
-    // void updatedProduct(const AbstractProduct*);
 };
 
-#endif // EDITORVIRTUALE_H
+#endif

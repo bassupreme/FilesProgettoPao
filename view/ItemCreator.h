@@ -1,7 +1,6 @@
 #ifndef ITEMCREATOR_H
 #define ITEMCREATOR_H
 
-// direttive d'inclusione
 #include <vector>
 #include <QSpinBox>
 #include <QStackedWidget>
@@ -24,4 +23,4 @@ public slots:
     void showType(int index);
 };
 
-#endif // ITEMCREATOR_H
+#endif

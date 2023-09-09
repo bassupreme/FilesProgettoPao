@@ -7,17 +7,13 @@
 
 
 EditorFisico::EditorFisico(MainWindow *mainWindow, const AbstractProduct *subject, QWidget *parent) : AbstractEditor(mainWindow, subject, parent) {
-    // setup oggetti grafici di questo editor specifico
     checkBoxUsato = new QCheckBox("usato");
     getContainer()->addRow("usato", checkBoxUsato);
 
-    // connect(getButtonApply(), SIGNAL(clicked()), this, SLOT(emitSignalUpdate()));
     connect(this, SIGNAL(signalUpdated(const AbstractProduct*)), this,  SLOT(updatedProduct(const AbstractProduct*)));
 }
 
 AbstractProduct* EditorFisico::update() const {
-    // prendere il subject e modificarlo a seconda dei parametri appena immessi
-    std::cout << "EditorFisico::update()" << std::endl;
     return create();
 }
 
@@ -36,7 +32,6 @@ QCheckBox *EditorFisico::getCheckBoxUsato() const {
 }
 
 void EditorFisico::injectItem(const Fisico& product) {
-    // settare i campi delle box
     getBoxId()->setValue(product.getId());
     getBoxPrezzo()->setValue(product.getPrezzo());
     getBoxNome()->setText(QString::fromStdString(product.getNome()));

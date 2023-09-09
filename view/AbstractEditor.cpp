@@ -99,8 +99,6 @@ void AbstractEditor::selectImage() {
 }
 
 void AbstractEditor::updatedProduct(const AbstractProduct* product) {
-    std::cout << "AbstractEditor::updatedProduct" << std::endl;
-    // vecchio prodotto
     AbstractProduct* aux = update();
 
     // prodotto nuovo

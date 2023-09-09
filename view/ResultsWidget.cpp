@@ -36,14 +36,9 @@ void ResultsWidget::renderResults(const std::vector<const AbstractProduct*>& res
         // creazione widget
         ListItem* listItem = new ListItem(*cit, this);
 
+        // connessione dei segnali e slot
         connect(listItem, SIGNAL(deletedProduct(const AbstractProduct*)), mainWindow, SLOT(deleteProduct(const AbstractProduct*)));
         connect(listItem, SIGNAL(updatedProduct(const AbstractProduct*)), mainWindow, SLOT(updateProduct(const AbstractProduct*)));
-
-        // personalizzazione widget
-        // QSizePolicy widgetPolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
-        // widgetPolicy.setVerticalStretch(0);
-        // listItem->setSizePolicy(widgetPolicy);
-
 
         // aggiunta al layout
         listItems.push_back(listItem);

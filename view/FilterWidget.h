@@ -25,16 +25,6 @@ private:
 public:
     ~FilterWidget();
     FilterWidget(QWidget* parent = nullptr);
-    /*
-    QLineEdit *getsearchBar() const;
-    QSpinBox* getLowerBox() const;
-    QSpinBox* getUpperBox() const;
-    QPushButton* getFilterButton() const;
-    QPushButton* getClearFilterButton() const;
-    const bool getHasControl() const;
-    void setHasControl(const bool);
-    Filter* getCurrentFilter() const;
-    */
     void disable();
     QPushButton* getButtonApply() const;
 private slots:
@@ -46,5 +36,4 @@ signals:
     void signalFilter(Filter*);
     void signalCleared(Filter*);
 };
-
-#endif // FILTERWIDGET_H
+#endif

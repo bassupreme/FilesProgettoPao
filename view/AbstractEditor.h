@@ -10,8 +10,6 @@
 #include <QTextEdit>
 #include <QFormLayout>
 #include <model/AbstractProduct.h>
-
-// inclusioni di test
 #include "mainwindow.h"
 
 
@@ -46,4 +44,4 @@ private slots:
 protected slots:
     void updatedProduct(const AbstractProduct*);
 };
-#endif // ABSTRACTEDITOR_H
+#endif

@@ -17,7 +17,6 @@ EditorNoleggio::EditorNoleggio(MainWindow *mainWindow, const AbstractProduct* su
 }
 
 void EditorNoleggio::injectItem(const Noleggio& product) {
-    // settare i campi delle box
     getBoxId()->setValue(product.getId());
     getBoxPrezzo()->setValue(product.getPrezzo());
     getBoxNome()->setText(QString::fromStdString(product.getNome()));

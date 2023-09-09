@@ -32,7 +32,6 @@ private:
     Buffer* buffer;
     Memory& memory;
     JsonFile* jsonFile;
-    // std::vector<AbstractProduct*> aux;
     ResultsWidget* resultsWidget;
     FilterWidget* filterWidget;
     QStackedWidget* stackedWidget;
@@ -49,7 +48,6 @@ public:
     Buffer *getBuffer() const;
     Memory& getMemory() const;
 public slots:
-    // std::vector<AbstractProduct*>& getMemory();
     void createDataset();
     void openDataset();
     void writeDataset();
@@ -60,4 +58,4 @@ public slots:
     void search(Filter*);
     void close();
 };
-#endif // MAINWINDOW_H
+#endif

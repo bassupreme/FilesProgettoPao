@@ -9,15 +9,12 @@
 #include <iostream>
 
 
-ListItem::~ListItem() {
-    // delete infoLayout;
-}
+ListItem::~ListItem() { }
 
 ListItem::ListItem(const AbstractProduct* product, QWidget* parent) : QWidget(parent), product(product) {
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
-    // setup immagine
     QPixmap image_object;
     if (product->getImagePath() != "") {
         image_object.load(QString::fromStdString(product->getImagePath()));
@@ -65,12 +62,6 @@ const AbstractProduct *ListItem::getProduct() const {
     return product;
 }
 
-/*
-QWidget *ListItem::getWidget() const {
-    return widget;
-}
-*/
-
 QPushButton *ListItem::getEditButton() const {
     return editButton;
 }
@@ -80,12 +71,9 @@ QPushButton *ListItem::getDeleteButton() const {
 }
 
 void ListItem::emitDeleteSignal() {
-    std::cout << "ListItem::emitDeletedSignal(): " << product->getNome() <<  std::endl;
     emit deletedProduct(product);
 }
 
-void ListItem::emitUpdateSignal()
-{
-    std::cout << "ListItem::emitUpdatedSignal():" << product->getNome() <<  std::endl;
+void ListItem::emitUpdateSignal() {
     emit updatedProduct(product);
 }

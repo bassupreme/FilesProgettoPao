@@ -17,10 +17,9 @@ public:
     virtual AbstractProduct* update() const;
     virtual AbstractProduct* create() const;
 signals:
-    void signalUpdated(const AbstractProduct*);
+    // void signalUpdated(const AbstractProduct*);
 private slots:
     virtual void emitSignalUpdate();
-    // virtual void updatedProduct(const AbstractProduct*);
 };
 
-#endif // EDITORNOLEGGIO_H
+#endif

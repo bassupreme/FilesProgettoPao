@@ -113,7 +113,6 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::clearResults() {
-    // clearStack();
     resultsWidget->clearResults();
 }
 
@@ -239,9 +238,6 @@ void MainWindow::toggleToolbar() {
 }
 
 void MainWindow::createProduct() {
-    // DEBUG
-    std::cout << "MainWindow::createProduct" << std::endl;
-
     // PULIZIA DEI WIDGET SOPRA LO STACK
     clearStack();
 
@@ -282,9 +278,6 @@ void MainWindow::deleteProduct(const AbstractProduct* product) {
 }
 
 void MainWindow::updateProduct(const AbstractProduct* product) {
-    // DEBUG
-    std::cout << "MainWindow::updateProduct" << std::endl;
-    std::cout << "aggiornare prodotto: " << std::to_string(product->getId()) << std::endl;
 
     // PULIZIA DEI WIDGET SOPRA LO STACK
     clearStack();
@@ -324,7 +317,6 @@ void MainWindow::search(Filter* filter) {
         stackedWidget->setCurrentIndex(0);
         clearStack();
     } else {
-        std::cout << "RICERCA CON FILTRO" << std::endl; // DEBUG
         const std::vector<const AbstractProduct*> results = memory.search(filter);
         resultsWidget->renderResults(results);
     }
