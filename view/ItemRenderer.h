@@ -16,4 +16,4 @@ public:
     QVBoxLayout* getRenderedLayout() const;
 };
 
-#endif // ITEMRENDERER_H
+#endif
