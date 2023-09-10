@@ -18,7 +18,7 @@ private:
     Node* head; // basta questo per la lista singolarmente linkata.
     Node* last;
     static void destroy(Node* head) {
-        while (head != 0) {
+        while (head != nullptr) {
             Node* next = head->next;
             delete head;
             head = next;
@@ -110,6 +110,7 @@ Container<T>::Container() : head(nullptr), last(nullptr) { }
 template<class T>
 Container<T>::~Container() {
     destroy(head);
+    head = last = nullptr;
 }
 
 template<class T>
@@ -156,7 +157,7 @@ void Container<T>::remove(T data) {
 template <class T>
 void Container<T>::clear() {
     destroy(head);
-
+    head = last = nullptr;
 }
 
 template<class T>
