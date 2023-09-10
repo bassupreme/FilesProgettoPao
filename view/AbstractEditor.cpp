@@ -83,8 +83,6 @@ MainWindow *AbstractEditor::getMainWindow() const {
 }
 
 void AbstractEditor::selectImage() {
-    std::cout << "select new image" << std::endl;
-
     QString path = QFileDialog::getOpenFileName(
                 this,
                 "Select image",

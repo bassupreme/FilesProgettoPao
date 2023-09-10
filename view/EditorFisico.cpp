@@ -18,7 +18,6 @@ AbstractProduct* EditorFisico::update() const {
 }
 
 AbstractProduct* EditorFisico::create() const {
-    std::cout << "EditorFisico::create()" << std::endl;
     return new Fisico(getBoxId()->value(),
                getBoxPrezzo()->value(),
                getBoxNome()->text().toStdString(),

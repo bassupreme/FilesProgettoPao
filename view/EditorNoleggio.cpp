@@ -32,7 +32,6 @@ AbstractProduct* EditorNoleggio::update() const {
 }
 
 AbstractProduct* EditorNoleggio::create() const {
-    std::cout << "EditorNoleggio::create()" << std::endl;
     return new Noleggio(getBoxId()->value(),
               getBoxPrezzo()->value(),
               getBoxNome()->text().toStdString(),

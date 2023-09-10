@@ -141,7 +141,6 @@ void MainWindow::createDataset() {
         );
 
     if (!path.isEmpty()) {
-        std::cout << path.toStdString() << std::endl;
         if(buffer != nullptr) {
             buffer->clear();
             delete buffer;
@@ -168,7 +167,6 @@ void MainWindow::openDataset() {
         "JSON files *.json"
         );
     if (!path.isEmpty()) {
-        std::cout << path.toStdString() << std::endl;
         if (buffer != nullptr) {
             buffer->clear(); // clear del buffer
         }
@@ -266,14 +264,9 @@ void MainWindow::createProduct() {
 }
 
 void MainWindow::deleteProduct(const AbstractProduct* product) {
-    std::cout << "SLOT MAIN WINDOW" << std::endl;
-    std::cout << "eliminare prodotto: " << std::to_string(product->getId()) << std::endl;
     resultsWidget->deleteResult(product);
     memory.remove(product);
     buffer->remove(product->getId());
-
-    // DEBUG
-    std::cout << "size buffer: " << buffer->getSize() << std::endl;
     setHasUnsavedChanges(true);
 }
 

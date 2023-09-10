@@ -6,7 +6,6 @@
 #include "service/PriceMatcher.h"
 
 void FilterWidget::clearCurrentFilter() {
-    std::cout << "filtro precedente rimosso" << std::endl;
     delete currentFilter;
     currentFilter = nullptr;
 }

@@ -31,6 +31,8 @@ Buffer& Buffer::insert(const unsigned int key, AbstractProduct* product) {
 
 
 Buffer& Buffer::remove(const unsigned int key) {
+    AbstractProduct* p = memoryBuffer[key];
+    delete p;
     memoryBuffer.erase(key);
     return *this;
 }

@@ -46,7 +46,6 @@ JsonFile& JsonFile::WriteTo(const std::vector<const AbstractProduct*>& prodotti,
         std::cout << "Non si riesce ad aprire il file" << endl;
     } else {
         json_file.write(document.toJson());
-        std::cout << "Dataset salvato correttamente" << endl;
         json_file.flush();
     }
     json_file.close();
